@@ -6,12 +6,11 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:18:43 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/28 04:00:57 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/28 19:03:33 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -24,25 +23,22 @@ namespace getStdin {
 			cout << av[i] << ' ';
 		cout << endl;
 	}
-	
-	char	ft_toupper(char **av, int i)
+
+	void	ft_toupper(char *av)
 	{	
-		for (int j = 0; av[i][j]; ++j) {
-    	char c = av[i][j];
-    	if (c >= 'a' && c <= 'z')
-        return ((char)(c - 32));
-    	else
-    	   return c;
+		for (int j = 0; av[j]; ++j) {
+			if (av[j] >= 'a' && av[j] <= 'z')
+	 			cout << ((char)(av[j] - 32));
+			else
+				cout << av[j];
 		}
-		return (0);
+		cout << ' ';
 	}
-	
+
 	void	modify_param(char **av)
 	{
-		int	i = 0;
-	
-		while (av && av[++i])
-			cout << ft_toupper(av, i) << ' ';
+		for (int i = 0; av && av[++i];)
+			ft_toupper(av[i]);
 		cout << endl;
 	}
 }
@@ -50,6 +46,9 @@ namespace getStdin {
 int	main(int ac, char **av)
 {
 	//coger parametros
-	getStdin::modify_param(av);
+	if (ac == 1)
+		cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << endl;
+	else
+		getStdin::modify_param(av);
 	return (0);
 }
