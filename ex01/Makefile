@@ -6,18 +6,19 @@
 #    By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 16:18:40 by eduaserr          #+#    #+#              #
-#    Updated: 2025/07/28 19:23:50 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/07/29 21:26:28 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= megaphone
+NAME	= phonebook
 CC		= g++
 CFLAGS	= -Wall -Wextra -Werror -g
 
-SRC		= megaphone.cpp
+SRC		= main.cpp
+SRCS	= src/a.cpp
 
 ### OBJS ###
-OBJS	= $(SRC:.cpp=.o)
+OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)
 
 ### RULES ###
 all : $(NAME)
@@ -31,7 +32,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJS) megaphone.o
+	@$(RM) $(OBJS)
 	@echo "clearing...🧹"
 
 fclean: clean
