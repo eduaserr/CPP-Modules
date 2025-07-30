@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:18:43 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/30 20:27:42 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/07/30 20:31:43 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 void	modify_param(char **av)
 {
 	for (int i = 0; av && av[++i];){
-		for (int j = 0; av[i][j]; ++j) {
-			if (av[i][j] >= 'a' && av[i][j] <= 'z')
- 				std::cout << ((char)(av[i][j] - 32));
-			else
-				std::cout << av[i][j];
-	}
+		for (int j = 0; av[i][j]; ++j)
+			std::cout << (char)std::toupper(av[i][j]);
 	std::cout << ' ';
 	}
 	std::cout << std::endl;
