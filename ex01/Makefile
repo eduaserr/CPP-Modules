@@ -6,7 +6,7 @@
 #    By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 16:18:40 by eduaserr          #+#    #+#              #
-#    Updated: 2025/07/29 21:26:28 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/08/05 22:36:51 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC		= g++
 CFLAGS	= -Wall -Wextra -Werror -g
 
 SRC		= main.cpp
-SRCS	= src/a.cpp
+SRCS	= src/Contact.cpp src/Phonebook.cpp
 
 ### OBJS ###
 OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)

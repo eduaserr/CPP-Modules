@@ -6,27 +6,29 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 22:25:39 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/07/30 23:05:12 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/06 02:23:20 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/a.hpp"
+#include "inc/Phonebook.hpp"
 
-People::People(void){
-	std::cout << "Hey" << std::endl;
-}
+PhoneBook::PhoneBook(void) {}
+PhoneBook::~PhoneBook(void) {}
 
-void	People::Parse(void){
-	std::cout << "Hola" << std::endl;
-}
-
-People::~People(void){
-	std::cout << "Adios" << std::endl;
-}
+Contact::Contact(void) {}
+Contact::~Contact(void) {}
 
 int	main(void)
 {
-	People obj;
-	std::cout << "hello" << std::endl;
+	PhoneBook	phbook;
+	std::string	cmd;
+
+	std::cout << "[SELECT ANY OPTION]\n\n> ADD\n> SEARCH\n> EXIT" << std::endl;
+	if (!std::getline(std::cin, cmd, '\n'))
+    	return (0);
+	while (cmd != "EXIT"){
+		std::cout << "Has introducido: " << cmd << std::endl;
+		std::cin.clear();
+	}
 	return (0);
 }
