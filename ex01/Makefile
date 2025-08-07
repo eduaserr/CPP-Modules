@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+         #
+#    By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 16:18:40 by eduaserr          #+#    #+#              #
-#    Updated: 2025/08/07 18:05:51 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/08/07 23:09:31 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC		= g++
 CFLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
 SRC		= main.cpp
-SRCS	= src/Contact.cpp src/Phonebook.cpp
+SRCS	= src/Contact.cpp src/Phonebook.cpp src/PhbookUtils.cpp
 
 ### OBJS ###
 OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)
