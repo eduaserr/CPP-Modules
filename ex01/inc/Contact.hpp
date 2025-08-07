@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:55:04 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 13:43:09 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:49:13 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <string>
 #include <cctype>
 #include <stdlib.h>
+#include <iomanip>
 
 class Contact{
 	private :

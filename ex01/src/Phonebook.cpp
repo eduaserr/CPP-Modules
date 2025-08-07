@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:36:13 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 15:36:37 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:03:18 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	PhoneBook::_getNumber(std::string& input, std::string msg)
 	while (true){
 		std::cout << msg << std::flush;
 		if (!std::getline(std::cin, input, '\n'))
-			exit(0);
+			exitPB();
 		if (!input.empty() && std::cin.good() && _checkNumber(input))
 			return ;
 		else
@@ -80,12 +80,18 @@ void	PhoneBook::searchContact(void)
 		std::cout << "\nNo contacts available." << std::endl;
 		return ;
 	}
-	std::cout << "\n=== CONTACT LIST ===" << std::endl;
-	std::cout << std::setw(10) << "Index" << "|";
-	std::cout << std::setw(10) << "First Name" << "|";
-	std::cout << std::setw(10) << "Last Name" << "|";
-	std::cout << std::setw(10) << "Nickname" << std::endl;
+	std::cout << "\n	=== CONTACT LIST ===" << std::endl;
+	std::cout << std::setw(6) << "Index" << " |";
+	std::cout << std::setw(11) << "First Name" << " |";
+	std::cout << std::setw(10) << "Last Name" << " |";
+	std::cout << std::setw(9) << "Nickname" << std::endl;
 	std::cout << std::string(43, '-') << std::endl;
+	for (int i = 0; i < totalContacts; i++) { // subject chequear minimo de espacio
+		std::cout << std::setw(6) << i << " |";
+		std::cout << std::setw(11) << people[i].getFirstName() << " |";
+		std::cout << std::setw(10) << people[i].getLastName() << " |";
+		std::cout << std::setw(9) << people[i].getNickname() << std::endl;
+	}
 }
 
 void	PhoneBook::addContact(void)
