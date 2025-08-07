@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:36:13 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 19:13:31 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:17:51 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	PhoneBook::_getInput(std::string& input, std::string msg)
 		if (!input.empty() && std::cin.good() && _checkAlpha(input))
 			return ;
 		else
-			std::cout << "Invalid input, only characters allowed" << std::endl;
+			std::cout << "Invalid input, only characters separated by one space allowed" << std::endl;
 	}
 }
 void	PhoneBook::_getNumber(std::string& input, std::string msg)
@@ -85,11 +85,20 @@ std::string PhoneBook::_truncateString(const std::string& str) const
 	return (str);
 }
 
+void	PhoneBook::_showInfoContact(int index){
+	std::cout << "\n=== CONTACT DETAILS ===" << std::endl;
+	std::cout << "- First Name:	" << people[index - 1].getFirstName() << std::endl;
+	std::cout << "- Last Name:	" << people[index - 1].getLastName() << std::endl;
+	std::cout << "- Nickname:	" << people[index - 1].getNickname() << std::endl;
+	std::cout << "- Phone:	" << people[index - 1].getNumber() << std::endl;
+	std::cout << "- Secret:	" << people[index - 1].getSecret() << "\n" << std::endl;
+}
+
 void	PhoneBook::searchContact(void)
 {
 	if (totalContacts == 0)
 	{
-		std::cout << "\nNo contacts available." << std::endl;
+		std::cout << "\nNo contacts available.\n" << std::endl;
 		return ;
 	}
 	std::cout << "\n	=== CONTACT LIST ===" << std::endl;
@@ -106,15 +115,22 @@ void	PhoneBook::searchContact(void)
 	}
 	std::string	index;
 	while (true) {
+		std::cout << "\n\nmore info, enter index: " << std::flush;
 		if (!std::getline(std::cin, index, '\n'))
 				exitPB();
-		for (int i = 0; index[i]; i++){
-			if (!isdigit(index[i])){
-				std::cout << "introduce only 1 index from 1 to " << totalContacts << std::endl;
-				break;
-			}
-			else
-				std::cout << "valid index" << std::endl;
+		if (index.empty() || !std::cin.good())
+			continue ;
+		if (index.length() != 1){
+			std::cout << "Enter only 1 digit" << std::endl;
+			continue ;
+		}
+		int intIndex = index[0] - '0';
+		if (!isdigit(index[0]) || intIndex < 1 || intIndex > totalContacts){
+			std::cout << "introduce only 1 index from 1 to " << totalContacts << std::endl;
+		}
+		else {
+			_showInfoContact(intIndex);
+			break ;
 		}
 	}
 }
