@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:36:13 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/06 23:40:10 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 02:19:33 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,9 @@ void	PhoneBook::addContact(void)
 	_getInput(nickname, "Nickname: ");
 	_getNumber(number, "Number phone: ");
 	_getInput(secret, "Darkest secret: ");
+
+	index = (index + 1) % 8;
+    if (totalContacts < 8)
+        totalContacts++;
+	std::cout << "\nContact added succesfully\n" << std::endl;
 }
