@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:13:03 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:08:15 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:24:09 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class PhoneBook{
 		void	_getNumber(std::string& number, std::string msg);
 		std::string	_truncateString(const std::string& str) const;
 		void	_showInfoContact(int index);
+		void	_getContactIndex(void);
 	public :
 		PhoneBook(void);
 		~PhoneBook(void);

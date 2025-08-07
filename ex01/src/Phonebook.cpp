@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:36:13 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 22:17:51 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:27:14 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,26 +94,9 @@ void	PhoneBook::_showInfoContact(int index){
 	std::cout << "- Secret:	" << people[index - 1].getSecret() << "\n" << std::endl;
 }
 
-void	PhoneBook::searchContact(void)
-{
-	if (totalContacts == 0)
-	{
-		std::cout << "\nNo contacts available.\n" << std::endl;
-		return ;
-	}
-	std::cout << "\n	=== CONTACT LIST ===" << std::endl;
-	std::cout << std::setw(6) << "Index" << " |";
-	std::cout << std::setw(11) << "First Name" << " |";
-	std::cout << std::setw(10) << "Last Name" << " |";
-	std::cout << std::setw(9) << "Nickname" << std::endl;
-	std::cout << std::string(43, '-') << std::endl;
-	for (int i = 0; i < totalContacts; i++) {
-		std::cout << std::setw(6) << i + 1 << " |";
-		std::cout << std::setw(11) << _truncateString(people[i].getFirstName()) << " |";
-		std::cout << std::setw(10) << _truncateString(people[i].getLastName()) << " |";
-		std::cout << std::setw(9) << _truncateString(people[i].getNickname()) << std::endl;
-	}
+void PhoneBook::_getContactIndex(void){
 	std::string	index;
+
 	while (true) {
 		std::cout << "\n\nmore info, enter index: " << std::flush;
 		if (!std::getline(std::cin, index, '\n'))
@@ -133,6 +116,28 @@ void	PhoneBook::searchContact(void)
 			break ;
 		}
 	}
+}
+
+void	PhoneBook::searchContact(void)
+{
+	if (totalContacts == 0)
+	{
+		std::cout << "\nNo contacts available.\n" << std::endl;
+		return ;
+	}
+	std::cout << "\n	=== CONTACT LIST ===" << std::endl;
+	std::cout << std::setw(6) << "Index" << " |";
+	std::cout << std::setw(11) << "First Name" << " |";
+	std::cout << std::setw(10) << "Last Name" << " |";
+	std::cout << std::setw(9) << "Nickname" << std::endl;
+	std::cout << std::string(43, '-') << std::endl;
+	for (int i = 0; i < totalContacts; i++) {
+		std::cout << std::setw(6) << i + 1 << " |";
+		std::cout << std::setw(11) << _truncateString(people[i].getFirstName()) << " |";
+		std::cout << std::setw(10) << _truncateString(people[i].getLastName()) << " |";
+		std::cout << std::setw(9) << _truncateString(people[i].getNickname()) << std::endl;
+	}
+	_getContactIndex();
 }
 
 void	PhoneBook::addContact(void)
