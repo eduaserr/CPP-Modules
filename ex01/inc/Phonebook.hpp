@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:13:03 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/06 23:38:41 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:25:22 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ class PhoneBook{
 		int		_checkNumber(std::string& input);
 		void	_getInput(std::string& input, std::string msg);
 		void	_getNumber(std::string& number, std::string msg);
+		std::string	_truncateString(const std::string& str) const;
 	public :
 		PhoneBook(void);
 		~PhoneBook(void);

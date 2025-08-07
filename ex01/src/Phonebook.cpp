@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:36:13 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 16:03:18 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 19:13:31 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,14 @@ int		PhoneBook::_checkNumber(std::string& input)
 int		PhoneBook::_checkAlpha(std::string& input)
 {
 	int	i = -1;
+	int	len = input.length();
 
+	if (input[0] == ' ' || input[len - 1] == ' ')
+		return (0);
 	while (input[++i]){
-		if (!isalpha(input[i]))
+		if (!isalpha(input[i]) && input[i] != ' ')
+			return (0);
+		if (input[i] == ' ' && input[i + 1] == ' ')
 			return (0);
 	}
 	return (1);
@@ -73,6 +78,13 @@ void	PhoneBook::exitPB(void)
 	exit(0);
 }
 
+std::string PhoneBook::_truncateString(const std::string& str) const
+{
+	if (str.length() > 9)
+		return (str.substr(0, 9) + ".");
+	return (str);
+}
+
 void	PhoneBook::searchContact(void)
 {
 	if (totalContacts == 0)
@@ -86,11 +98,24 @@ void	PhoneBook::searchContact(void)
 	std::cout << std::setw(10) << "Last Name" << " |";
 	std::cout << std::setw(9) << "Nickname" << std::endl;
 	std::cout << std::string(43, '-') << std::endl;
-	for (int i = 0; i < totalContacts; i++) { // subject chequear minimo de espacio
-		std::cout << std::setw(6) << i << " |";
-		std::cout << std::setw(11) << people[i].getFirstName() << " |";
-		std::cout << std::setw(10) << people[i].getLastName() << " |";
-		std::cout << std::setw(9) << people[i].getNickname() << std::endl;
+	for (int i = 0; i < totalContacts; i++) {
+		std::cout << std::setw(6) << i + 1 << " |";
+		std::cout << std::setw(11) << _truncateString(people[i].getFirstName()) << " |";
+		std::cout << std::setw(10) << _truncateString(people[i].getLastName()) << " |";
+		std::cout << std::setw(9) << _truncateString(people[i].getNickname()) << std::endl;
+	}
+	std::string	index;
+	while (true) {
+		if (!std::getline(std::cin, index, '\n'))
+				exitPB();
+		for (int i = 0; index[i]; i++){
+			if (!isdigit(index[i])){
+				std::cout << "introduce only 1 index from 1 to " << totalContacts << std::endl;
+				break;
+			}
+			else
+				std::cout << "valid index" << std::endl;
+		}
 	}
 }
 
@@ -104,15 +129,8 @@ void	PhoneBook::addContact(void)
 	_getInput(nickname, "Nickname: ");
 	_getNumber(number, "Number phone: ");
 	_getInput(secret, "Darkest secret: ");
-
 	Contact	newContact;
 	newContact.setContact(firstName, lastName, nickname, number, secret);
-
-	//for (int i = std::min(totalContacts, 7); i > 0; i--){
-	//people[i] = people[i-1];
-	//}
-	//people[0] = newContact;
-
 	people[index] = newContact;
 	index = (index + 1) % 8;
 	if (totalContacts < 8)

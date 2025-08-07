@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+         #
+#    By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 16:18:40 by eduaserr          #+#    #+#              #
-#    Updated: 2025/08/05 22:36:51 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/08/07 18:05:51 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= phonebook
 CC		= g++
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
 SRC		= main.cpp
 SRCS	= src/Contact.cpp src/Phonebook.cpp
