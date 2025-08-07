@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:36:13 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 02:37:27 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:36:37 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ PhoneBook::PhoneBook(void) {
 	index = 0;
 	totalContacts = 0;
 }
+
 PhoneBook::~PhoneBook(void) {}
 
 int		PhoneBook::_checkNumber(std::string& input)
@@ -73,7 +74,19 @@ void	PhoneBook::exitPB(void)
 }
 
 void	PhoneBook::searchContact(void)
-{}
+{
+	if (totalContacts == 0)
+	{
+		std::cout << "\nNo contacts available." << std::endl;
+		return ;
+	}
+	std::cout << "\n=== CONTACT LIST ===" << std::endl;
+	std::cout << std::setw(10) << "Index" << "|";
+	std::cout << std::setw(10) << "First Name" << "|";
+	std::cout << std::setw(10) << "Last Name" << "|";
+	std::cout << std::setw(10) << "Nickname" << std::endl;
+	std::cout << std::string(43, '-') << std::endl;
+}
 
 void	PhoneBook::addContact(void)
 {
@@ -88,6 +101,12 @@ void	PhoneBook::addContact(void)
 
 	Contact	newContact;
 	newContact.setContact(firstName, lastName, nickname, number, secret);
+
+	//for (int i = std::min(totalContacts, 7); i > 0; i--){
+	//people[i] = people[i-1];
+	//}
+	//people[0] = newContact;
+
 	people[index] = newContact;
 	index = (index + 1) % 8;
 	if (totalContacts < 8)

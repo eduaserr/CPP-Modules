@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:55:04 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 02:30:11 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:43:09 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ class Contact{
 	public :
 		Contact(void);
 		~Contact(void);
-		void	setContact(std::string firstName, std::string lastName,
-						std::string nickname, std::string number,
-						std::string secret);
+		void	setContact(const std::string& firstName, const std::string& lastName,
+						const std::string& nickname, const std::string& number,
+						const std::string& secret);
 		std::string getFirstName(void);
 		std::string getLastName(void);
 		std::string getNickname(void);
