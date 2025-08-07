@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:55:04 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 02:20:04 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 02:30:11 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 class Contact{
 	private :
-		void	Parse(void);
+
 		std::string _firstName;
 		std::string	_lastName;
 		std::string	_nickname;
@@ -29,5 +29,13 @@ class Contact{
 	public :
 		Contact(void);
 		~Contact(void);
+		void	setContact(std::string firstName, std::string lastName,
+						std::string nickname, std::string number,
+						std::string secret);
+		std::string getFirstName(void);
+		std::string getLastName(void);
+		std::string getNickname(void);
+		std::string getNumber(void);
+		std::string getSecret(void);
 };
 #endif

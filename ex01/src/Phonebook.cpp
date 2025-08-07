@@ -6,11 +6,17 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:36:13 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 02:19:33 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 02:37:27 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Phonebook.hpp"
+
+PhoneBook::PhoneBook(void) {
+	index = 0;
+	totalContacts = 0;
+}
+PhoneBook::~PhoneBook(void) {}
 
 int		PhoneBook::_checkNumber(std::string& input)
 {
@@ -80,8 +86,11 @@ void	PhoneBook::addContact(void)
 	_getNumber(number, "Number phone: ");
 	_getInput(secret, "Darkest secret: ");
 
+	Contact	newContact;
+	newContact.setContact(firstName, lastName, nickname, number, secret);
+	people[index] = newContact;
 	index = (index + 1) % 8;
-    if (totalContacts < 8)
-        totalContacts++;
-	std::cout << "\nContact added succesfully\n" << std::endl;
+	if (totalContacts < 8)
+		totalContacts++;
+	std::cout << "\nContact added succesfully!\n" << std::endl;
 }

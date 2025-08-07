@@ -6,17 +6,11 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 22:25:39 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 01:48:35 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/07 02:38:11 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/Phonebook.hpp"
-
-PhoneBook::PhoneBook(void) {}
-PhoneBook::~PhoneBook(void) {}
-
-Contact::Contact(void) {}
-Contact::~Contact(void) {}
 
 int	main(void)
 {
@@ -24,7 +18,7 @@ int	main(void)
 	std::string	cmd;
 
 	while (cmd != "EXIT"){
-		std::cout << "[SELECT ANY OPTION]\n\n> ADD\n> SEARCH\n> EXIT" << std::endl;
+		std::cout << "[ SELECT ANY OPTION ]\n\n> ADD\n> SEARCH\n> EXIT" << std::endl;
 		if (!std::getline(std::cin, cmd, '\n'))
     		phbook.exitPB();
 		if (std::cin.good()){
