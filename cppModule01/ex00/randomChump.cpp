@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   randomChump.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 23:48:08 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/10 03:59:30 by eduaserr         ###   ########.fr       */
+/*   Created: 2025/08/10 04:02:17 by eduaserr          #+#    #+#             */
+/*   Updated: 2025/08/10 04:03:16 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-int	main(void)
-{
-	Zombie	*Zombie1;
-
-	Zombie1 = newZombie("Foo");
-	Zombie1->announce();
-	delete Zombie1;
-	randomChump("Fuu");
-	return (0);
+void	randomChump(std::string name){
+	Zombie	NewZombie(name);
+	NewZombie.announce();
 }
