@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:55:04 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 15:49:13 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/10 02:05:21 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 class Contact{
 	private :
-
 		std::string _firstName;
 		std::string	_lastName;
 		std::string	_nickname;

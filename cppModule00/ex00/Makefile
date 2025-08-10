@@ -6,13 +6,13 @@
 #    By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 16:18:40 by eduaserr          #+#    #+#              #
-#    Updated: 2025/07/28 19:23:50 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/08/08 14:47:37 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= megaphone
 CC		= g++
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
 SRC		= megaphone.cpp
 
