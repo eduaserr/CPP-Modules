@@ -6,11 +6,23 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:51:38 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/11 18:57:40 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:52:40 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WEAPON_HPP
 # define WEAPON_HPP
+
+#include <iostream>
+#include <string>
+
+class	Weapon
+{
+	private:
+		std::string	_type;
+	public:
+		std::string const	&getType(void);
+		void				setType(std::string const &type);
+};
 
 #endif
