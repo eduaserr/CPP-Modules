@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 22:25:39 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/07 23:16:44 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:42:15 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(void)
 	while (cmd != "EXIT"){
 		std::cout << "[ SELECT ANY OPTION ]\n\n> ADD\n> SEARCH\n> EXIT" << std::endl;
 		if (!std::getline(std::cin, cmd, '\n'))
-    		phbook.exitPB();
+			phbook.exitPB();
 		if (std::cin.good()){
 			if (cmd == "ADD"){phbook.addContact();}
 			else if (cmd == "SEARCH"){phbook.searchContact();}
