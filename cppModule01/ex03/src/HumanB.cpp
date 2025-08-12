@@ -3,11 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:51:27 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/12 20:44:25 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/13 01:06:08 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/HumanB.hpp"
+
+void	HumanB::attack()
+{}
