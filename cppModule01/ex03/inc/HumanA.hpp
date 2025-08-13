@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:51:25 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/13 01:14:44 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:21:07 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HUMANA_HPP
 # define HUMANA_HPP
 
-#include <Weapon.hpp>
+#include "Weapon.hpp"
 
 class	HumanA
 {
