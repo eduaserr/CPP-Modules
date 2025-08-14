@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 18:51:30 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/14 18:30:41 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:55:07 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class	HumanB
 		HumanB(std::string name);
 		~HumanB();
 		void	attack();
-		void	setWeapon(Weapon weapon);
+		void	setWeapon(Weapon& weapon);
 };
 
 #endif
