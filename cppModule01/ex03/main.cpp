@@ -6,7 +6,7 @@
 /*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 23:48:08 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/12 23:56:35 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/14 03:17:13 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,8 @@ int main()
 	}
 	return 0;
 }
+
+/*
+Lista de inicialización
+referencias / punteros
+*/
