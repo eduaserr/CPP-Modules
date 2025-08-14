@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+         #
+#    By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 16:18:40 by eduaserr          #+#    #+#              #
-#    Updated: 2025/08/14 03:05:02 by eduaserr         ###   ########.fr        #
+#    Updated: 2025/08/14 18:33:40 by eduaserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC		= main.cpp
 SRCS	= src/Weapon.cpp src/HumanA.cpp src/HumanB.cpp
 
 ### OBJS ###
-OBJS	= $(SRC:.cpp=.o)
+OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)
 
 ### RULES ###
 all : $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 23:48:08 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/14 03:17:13 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:54:36 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@
 int main()
 {
 	{
-		Weapon club = Weapon("crude spiked club");
-		HumanA bob("Bob", club);
+		Weapon	club = Weapon("crude spiked club");
+		HumanA	bob("Bob", club);
+
 		bob.attack();
 		club.setType("some other type of club");
 		bob.attack();
 	}
 	{
-		Weapon club = Weapon("crude spiked club");
-		HumanB jim("Jim");
+		Weapon	club = Weapon("crude spiked club");
+		HumanB	jim("Jim");
+
 		jim.setWeapon(club);
 		jim.attack();
 		club.setType("some other type of club");
@@ -32,8 +34,3 @@ int main()
 	}
 	return 0;
 }
-
-/*
-Lista de inicialización
-referencias / punteros
-*/
