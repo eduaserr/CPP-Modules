@@ -4,18 +4,18 @@ HumanA: _weapon ES club.
 
 Stack Memory:
 ┌─────────────────────────────────┐
-│ club (Weapon object)            │ ← Dirección: 0x1000
+│ club (Weapon object)			│ ← Dirección: 0x1000
 │ ┌─────────────────────────────┐ │
 │ │ _type: "crude spiked club"  │ │
 │ └─────────────────────────────┘ │
 └─────────────────────────────────┘
-          ↑
-          │ bob._weapon ES EL MISMO OBJETO
-          │ (referencia directa)
+		  ↑
+		  │ bob._weapon ES EL MISMO OBJETO
+		  │ (referencia directa)
 ┌─────────────────────────────────┐
-│ bob (HumanA object)             │
+│ bob (HumanA object)			 │
 │ ┌─────────────────────────────┐ │
-│ │ _name: "Bob"                │ │
+│ │ _name: "Bob"				│ │
 │ │ _weapon: ───────────────────┼─┘ (NO es un puntero, ES club)
 │ └─────────────────────────────┘ │
 └─────────────────────────────────┘
@@ -31,19 +31,19 @@ HumanB: _weapon APUNTA A club.
 
 Stack Memory:
 ┌─────────────────────────────────┐
-│ club (Weapon object)            │ ← Dirección: 0x2000
+│ club (Weapon object)			│ ← Dirección: 0x2000
 │ ┌─────────────────────────────┐ │
 │ │ _type: "crude spiked club"  │ │
 │ └─────────────────────────────┘ │
 └─────────────────────────────────┘
-          ↑
-          │ jim._weapon APUNTA A este objeto
-          │ (puntero indirecto)
-          │
+		  ↑
+		  │ jim._weapon APUNTA A este objeto
+		  │ (puntero indirecto)
+		  │
 ┌─────────────────────────────────┐
-│ jim (HumanB object)             │
+│ jim (HumanB object)			 │
 │ ┌─────────────────────────────┐ │
-│ │ _name: "Jim"                │ │
+│ │ _name: "Jim"				│ │
 │ │ _weapon: 0x2000 ────────────┼─┘ (puntero que contiene dirección)
 │ └─────────────────────────────┘ │
 └─────────────────────────────────┘
