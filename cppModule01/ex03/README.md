@@ -1,51 +1,39 @@
-MAIN FUNCTION - PRIMER BLOQUE {}
-═══════════════════════════════════
-HumanA: _weapon ES club.
+# References vs Pointers - Visual Guide
 
-Stack Memory:
-┌─────────────────────────────────┐
-│ club (Weapon object)			│ ← Dirección: 0x1000
-│ ┌─────────────────────────────┐ │
-│ │ _type: "crude spiked club"  │ │
-│ └─────────────────────────────┘ │
-└─────────────────────────────────┘
-		  ↑
-		  │ bob._weapon ES EL MISMO OBJETO
-		  │ (referencia directa)
-┌─────────────────────────────────┐
-│ bob (HumanA object)			 │
-│ ┌─────────────────────────────┐ │
-│ │ _name: "Bob"				│ │
-│ │ _weapon: ───────────────────┼─┘ (NO es un puntero, ES club)
-│ └─────────────────────────────┘ │
-└─────────────────────────────────┘
+## HumanA: Reference (SAME OBJECT)
 
-RESULTADO: bob._weapon y club son EL MISMO OBJETO EN MEMORIA
+```
+club ────────────── bob._weapon
+ │                      │
+ └──────────────────────┘
+     SAME OBJECT!
 
+When club changes → bob._weapon changes (because they ARE the same)
+```
 
-----------------------------------------------------------------
+## HumanB: Pointer (POINTS TO)
 
-MAIN FUNCTION - SEGUNDO BLOQUE {}
-════════════════════════════════════
-HumanB: _weapon APUNTA A club.
+```
+club ←──────────── jim._weapon
+ │                      │
+ │                   (pointer)
+ │                      │
+ └── object ────── address of club
 
-Stack Memory:
-┌─────────────────────────────────┐
-│ club (Weapon object)			│ ← Dirección: 0x2000
-│ ┌─────────────────────────────┐ │
-│ │ _type: "crude spiked club"  │ │
-│ └─────────────────────────────┘ │
-└─────────────────────────────────┘
-		  ↑
-		  │ jim._weapon APUNTA A este objeto
-		  │ (puntero indirecto)
-		  │
-┌─────────────────────────────────┐
-│ jim (HumanB object)			 │
-│ ┌─────────────────────────────┐ │
-│ │ _name: "Jim"				│ │
-│ │ _weapon: 0x2000 ────────────┼─┘ (puntero que contiene dirección)
-│ └─────────────────────────────┘ │
-└─────────────────────────────────┘
+When club changes → jim._weapon sees change (because pointer follows)
+```
 
-RESULTADO: jim._weapon CONTIENE LA DIRECCIÓN de club
+## Result: Both see changes to `club`
+
+```
+club.setType("new weapon")
+         ↓
+bob._weapon: "new weapon"  ✓ (same object)
+jim._weapon: "new weapon"  ✓ (points to same object)
+```
+
+## Key Difference
+
+- **HumanA**: `_weapon` **IS** `club`
+- **HumanB**: `_weapon` **POINTS TO** `club`
+- **Both**: Modify the same `club` object
