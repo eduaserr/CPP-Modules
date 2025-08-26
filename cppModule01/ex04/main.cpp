@@ -3,41 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 23:48:08 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/25 22:45:22 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:33:42 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
+#include "inc/createFile.hpp"
 
-void	replacestr(std::string& buff, char *s1, char *s2)
-{
-	std::string	tmp;
-	(void)s2;
-	if (buff.find(s1) != std::string::npos){
-		std::cout << "replace" << std::endl;
-		buff.copy(tmp, buff.size(), 0);
-		buff.erase();
-		buff.substr();
-	}
-	//	buff.replace();
-}
-
-static bool	createFilename(std::ifstream& ifd, char **av)
-{
-	std::ofstream	ofd("newFilename.txt");
-
-	if (!ofd.is_open())
-		return 1;
-	std::string buff;
-	while (std::getline(ifd, buff, '\n')){
-		replacestr(buff, av[2], av[3]);
-		ofd << buff << std::endl;}
-	ofd.close();
-	return (0);
-}
+Main::Main(){}
+Main::~Main(){}
 
 bool	openFilename(const char *filename, std::ifstream& ifd)
 {
@@ -49,15 +25,15 @@ bool	openFilename(const char *filename, std::ifstream& ifd)
 
 int main(int ac, char **av)
 {
-	std::ifstream	ifd;
+	Main	fd;
 
 	if (ac == 4)
 	{
-		if (openFilename(av[1], ifd))
+		if (openFilename(av[1], fd.ifd))
 			std::cout << "error opening filename: " << av[1] << " does not exist" << std::endl;
-		if (createFilename(ifd, av))
+		if (!fd.ifd || fd.createFilename(fd.ifd, av))
 			std::cout << "error creating new file" << std::endl;
-		ifd.close();
+		fd.ifd.close();
 	}
 	else
 		std::cout << "invalid arguments" << std::endl;
