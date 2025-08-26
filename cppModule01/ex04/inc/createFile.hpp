@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:58:00 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/26 21:27:47 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:55:31 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@
 class	Main
 {
 	private :
-		
-
-	public :
 		std::ifstream	ifd;
 		std::string	buff;
+
+	public :
 		Main();
 		~Main();
-		bool	createFilename(std::ifstream& ifd, char **av);
+		bool	isFileOpen() const {return ifd.is_open();}
+		void	closeFd() {ifd.close();}
+		bool	createFilename(char **av);
+		bool	openFilename(const char *filename);
 };
 
 #endif

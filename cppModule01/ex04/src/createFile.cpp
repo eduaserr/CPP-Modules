@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 21:17:58 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/26 21:33:54 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:42:59 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	replacestr(std::string& buff, std::string s1, std::string s2)
 	}
 }
 
-bool	Main::createFilename(std::ifstream& ifd, char **av)
+bool	Main::createFilename(char **av)
 {
 	std::ofstream	ofd("filename.replace");
 
@@ -39,5 +39,13 @@ bool	Main::createFilename(std::ifstream& ifd, char **av)
 			ofd << std::endl;
 	}
 	ofd.close();
+	return (0);
+}
+
+bool	Main::openFilename(const char *filename)
+{
+	ifd.open(filename, std::ios::in);
+	if (!ifd.is_open())
+		return (1);
 	return (0);
 }
