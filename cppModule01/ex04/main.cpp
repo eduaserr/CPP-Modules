@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 23:48:08 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/25 21:20:29 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/25 22:45:22 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	replacestr(std::string& buff, char *s1, char *s2)
 {
+	std::string	tmp;
 	(void)s2;
-	if (buff.compare(s1) == 0){
+	if (buff.find(s1) != std::string::npos){
 		std::cout << "replace" << std::endl;
+		buff.copy(tmp, buff.size(), 0);
+		buff.erase();
+		buff.substr();
 	}
 	//	buff.replace();
 }
