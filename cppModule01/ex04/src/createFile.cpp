@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   createFile.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 21:17:58 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/26 23:19:55 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:19:34 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	replacestr(std::string& buff, std::string s1, std::string s2)
 		pre.append(s2);
 		pos = buff.substr(ix + s1.size(), buff.size());
 		buff = pre + pos;
-		std::cout << "Reemplazando coincidencia en posición: " << ix << std::endl;
 	}
 }
 

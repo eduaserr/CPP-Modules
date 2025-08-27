@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduaserr <eduaserr@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:58:00 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/27 00:34:38 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:35:10 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 class	Harl
 {
 	private :
-	void debug(void);
-	void info(void);
-	void warning(void);
-	void error(void);
+	void	debug(void);
+	void	info(void);
+	void	warning(void);
+	void	error(void);
 
 	public :
 		Harl();
