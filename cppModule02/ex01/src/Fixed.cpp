@@ -17,10 +17,13 @@ const int	Fixed::_fracBits = 8;
 Fixed::Fixed():_fptrNumberValue(0){
 	std::cout << "Default constructor called" << std::endl;
 }
-Fixed::Fixed(Fixed& data){
+Fixed::Fixed(const int number){
 	std::cout << "Copy constructor called" << std::endl;
-	*this = data;
 }
+Fixed::Fixed(const float *number){
+	std::cout << "Copy constructor called" << std::endl;
+}
+
 Fixed	&Fixed::operator=(Fixed& data){
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &data)

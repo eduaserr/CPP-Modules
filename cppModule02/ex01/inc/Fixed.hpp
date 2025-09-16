@@ -23,12 +23,15 @@ class	Fixed
 		static const int	_fracBits;
 	public :
 		Fixed();
-		Fixed(Fixed& data);
+		Fixed(const int number);
+		Fixed(const float *number);
 		Fixed& operator=(Fixed& data);
 		~Fixed();
 
 	int		getRawBits(void) const;
 	void	setRawBits(int const raw);
+	float	toFloat( void ) const;
+	int		toInt( void ) const;
 };
 
 #endif
