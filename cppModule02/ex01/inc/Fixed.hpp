@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:58:00 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/09/25 16:38:19 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:23:26 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 class	Fixed
 {
 	private :
-		int					_fptrNumberValue;
+		int					_fpNumberValue;
 		static const int	_fracBits;
 	public :
 		Fixed();
