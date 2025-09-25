@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:58:00 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/28 20:52:54 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:38:19 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 class	Fixed
 {
@@ -23,9 +24,10 @@ class	Fixed
 		static const int	_fracBits;
 	public :
 		Fixed();
+		Fixed(const Fixed& other);
 		Fixed(const int number);
-		Fixed(const float *number);
-		Fixed& operator=(Fixed& data);
+		Fixed(const float number);
+		Fixed& operator=(const Fixed& data);
 		~Fixed();
 
 	int		getRawBits(void) const;
@@ -33,5 +35,7 @@ class	Fixed
 	float	toFloat( void ) const;
 	int		toInt( void ) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed& obj);
 
 #endif
