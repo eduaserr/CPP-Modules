@@ -6,7 +6,7 @@
 /*   By: eduaserr < eduaserr@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 21:17:58 by eduaserr          #+#    #+#             */
-/*   Updated: 2025/08/28 21:05:58 by eduaserr         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:58:00 by eduaserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 const int	Fixed::_fracBits = 8;
 
-Fixed::Fixed():_fptrNumberValue(0){
+Fixed::Fixed():_fpNumberValue(0){
 	std::cout << "Default constructor called" << std::endl;
 }
 Fixed::Fixed(Fixed& data){
@@ -33,9 +33,9 @@ Fixed::~Fixed(){
 
 int	Fixed::getRawBits() const {
 	std::cout << "getRawBits member function called" << std::endl;
-	return (this->_fptrNumberValue);
+	return (this->_fpNumberValue);
 }
 
 void	Fixed::setRawBits(int const raw){
-	this->_fptrNumberValue = raw;
+	this->_fpNumberValue = raw;
 }
