@@ -1,11 +1,11 @@
 #include "../inc/ClapTrap.hpp"
 
-ClapTrap::ClapTrap(): _name("noName"), _hp(10), _ep(0), _ad(10){
+ClapTrap::ClapTrap(): _name("noName"), _hp(10), _ep(10), _ad(0){
     std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
 ClapTrap::ClapTrap(const ClapTrap& data){(void)data;}
 
-ClapTrap::ClapTrap(const std::string& name): _hp(10), _ep(0), _ad(10){
+ClapTrap::ClapTrap(const std::string& name): _hp(10), _ep(10), _ad(0){
     this->_name = name;
     std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
