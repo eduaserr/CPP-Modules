@@ -16,8 +16,7 @@ const int	Fixed::_fracBits = 8;
 
 Fixed::Fixed():_fpNumberValue(0){
 }
-Fixed::Fixed(const Fixed& data){
-	*this = data;
+Fixed::Fixed(const Fixed& data) : _fpNumberValue(data._fpNumberValue){
 }
 Fixed	&Fixed::operator=(const Fixed& data){
 	if (this != &data)
@@ -113,14 +112,22 @@ Fixed Fixed::operator--(int) {
 }
 
 Fixed& Fixed::min(Fixed& a, Fixed& b) {
-	return (a < b ? a : b);
+	if (a < b)
+		return (a);
+	return (b);
 }
 const Fixed& Fixed::min(const Fixed& a, const Fixed& b) {
-	return (a < b ? a : b);
+	if (a < b)
+		return (a);
+	return (b);
 }
 Fixed& Fixed::max(Fixed& a, Fixed& b) {
-	return (a > b ? a : b);
+	if (a > b)
+		return (a);
+	return (b);
 }
 const Fixed& Fixed::max(const Fixed& a, const Fixed& b) {
-	return (a > b ? a : b);
+	if (a > b)
+		return (a);
+	return (b);
 }
