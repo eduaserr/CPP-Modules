@@ -21,18 +21,6 @@ static void	botAttack(ClapTrap& attacker, ClapTrap& defender){
 		attacker.beRepaired(3);								// reparar
 }
 
-static void	ScavTrapAttack(ScavTrap& attacker, ScavTrap& defender){
-	if (attacker.getHp() > 0){
-		attacker.attack(defender.getName());				//mensajes
-		if (attacker.getEp() > 0){							// accion de atacar
-			attacker.setEp(attacker.getEp() - 1);			// restar energia
-			defender.takeDamage(attacker.getAd());			//recibir daño
-		}
-	}
-	if (attacker.getItem())									//para diferenciar quien puede curarse
-		attacker.beRepaired(3);								// reparar
-}
-
 int main() {
 	ScavTrap	Scav;
 	ScavTrap	Guard("Guardian");
