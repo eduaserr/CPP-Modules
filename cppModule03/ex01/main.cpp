@@ -34,27 +34,27 @@ static void	ScavTrapAttack(ScavTrap& attacker, ScavTrap& defender){
 }
 
 int main() {
-	ScavTrap	Scrav;
+	ScavTrap	Scav;
 	ScavTrap	Guard("Guardian");
 	ClapTrap	bot("Tob");
 
-	//Scrav.setAd(4);
+	//Scav.setAd(4);
 	//Guard.setAd(2);
-	//Scrav.setEp(1);
+	//Scav.setEp(1);
 	//Guard.setEp(3);
 	//Guard.setItem(1);
-	Scrav.guardGate();
+	Scav.guardGate();
 	Guard.guardGate();
 	std::cout << "\n ====ScavTrap vs ScavTrap==== \n" << std::endl;
-	while (Scrav.isAlive() && Guard.isAlive()){
+	while (Scav.isAlive() && Guard.isAlive()){
 
-		if (!Scrav.getEp() && !Guard.getEp()){
-			std::cout << "both bots are out of Energy Points. " << getWinner(Scrav, Guard) << " wins!" << std::endl;
+		if (!Scav.getEp() && !Guard.getEp()){
+			std::cout << "both bots are out of Energy Points. " << getWinner(Scav, Guard) << " wins!" << std::endl;
 			break ;
 		}
 
-		botAttack(Scrav, Guard);
-		botAttack(Guard, Scrav);
+		botAttack(Scav, Guard);
+		botAttack(Guard, Scav);
 
 		std::cout << std::endl;
 	}
