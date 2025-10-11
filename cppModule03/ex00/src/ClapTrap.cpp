@@ -21,18 +21,24 @@ void	ClapTrap::attack(const std::string& target)
 {
 	if (!this->_ep)
 		std::cout << "No energy left!" << std::endl;
-	if (this->_ep > 0 && this->_hp > 0){
+	else if (this->_ep > 0 && this->_hp > 0){
 		setEp(getEp() - 1);
 		std::cout << "Claptrap " << _name << " attacks " << target << ", causing " << _ad << " points of damage!" << std::endl;
 	}
 }
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-	setHp(getHp() - amount);
+	if (this->_ep > 0 && this->_hp > 0){
+		std::cout << "Claptrap " << _name << " received " << amount << " points of damage" << std::endl;
+		setHp(getHp() - amount);
+	}
 }
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	setHp(getHp() + amount);
+	if (this->_ep > 0 && this->_hp > 0){
+		std::cout << "Claptrap " << _name << " repaired " << amount << " points of damage" << std::endl;
+		setHp(getHp() + amount);
+	}
 }
 
 void	ClapTrap::setName(const std::string& name){
