@@ -1,32 +1,69 @@
 #include "../inc/ClapTrap.hpp"
 
 ClapTrap::ClapTrap(): _name("noName"), _hp(10), _ep(10), _ad(0){
-    std::cout << "Constructor bot " << _name << " called" << std::endl;
+	std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
-ClapTrap::ClapTrap(const ClapTrap& data){(void)data;}
+ClapTrap::ClapTrap(const ClapTrap& data){
+	*this = data;
+	std::cout << "Copy constructor called" << std::endl;
+}
 
 ClapTrap::ClapTrap(const std::string& name): _hp(10), _ep(10), _ad(0){
-    this->_name = name;
-    std::cout << "Constructor bot " << _name << " called" << std::endl;
+	this->_name = name;
+	std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
 
-ClapTrap& ClapTrap::operator=(const ClapTrap& data){(void)data;
-    return (*this);}
 ClapTrap::~ClapTrap(){
-    std::cout << "Destructor bot " << _name << " called" << std::endl;
+	std::cout << "Destructor bot " << _name << " called" << std::endl;
 }
 
 void	ClapTrap::attack(const std::string& target)
 {
-    std::cout << "Claptrap " << _name << " attacks " << target << ", causing " << _ad << " points of damage!" << std::endl;
+	if (!this->_ep)
+		std::cout << "No energy left!" << std::endl;
+	if (this->_ep > 0 && this->_hp > 0){
+		setEp(getEp() - 1);
+		std::cout << "Claptrap " << _name << " attacks " << target << ", causing " << _ad << " points of damage!" << std::endl;
+	}
 }
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-    (void)amount;
-    this->_hp = _hp - amount;
+	setHp(getHp() - amount);
 }
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-    (void)amount;
-    this->_hp = _hp + amount;
+	setHp(getHp() + amount);
+}
+
+void	ClapTrap::setName(const std::string& name){
+	this->_name = name;
+}
+void	ClapTrap::setHp(int hp){
+	this->_hp = hp;
+}
+void	ClapTrap::setAd(int ad){
+	this->_ad = ad;
+}
+void	ClapTrap::setEp(int ep){
+	this->_ep = ep;
+}
+
+std::string	ClapTrap::getName(){
+	return (this->_name);
+}
+int	ClapTrap::getHp(){
+	return (this->_hp);
+}
+int	ClapTrap::getAd(){
+	return (this->_ad);
+}
+int	ClapTrap::getEp(){
+	return (this->_ep);
+}
+
+bool	ClapTrap::isAlive() {
+	std::cout << _name << ": hp left " << _hp << std::endl;
+	if (this->_hp < 1)
+		std::cout << _name << " has no more health points left!" << std::endl;
+	return (this->_hp > 0 ? true : false);
 }
