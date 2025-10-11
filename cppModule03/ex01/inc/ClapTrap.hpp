@@ -33,6 +33,7 @@ public:
 	void	takeDamage(unsigned int amount);
 	void	beRepaired(unsigned int amount);
 	bool	isAlive() const;
+	void	revive(int hp, int ep);
 };
 
 #endif

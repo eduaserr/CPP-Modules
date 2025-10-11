@@ -95,3 +95,9 @@ bool	ClapTrap::isAlive() const {
 		std::cout << _name << " has no more health points left!" << std::endl;
 	return (_hp > 0);
 }
+
+void	ClapTrap::revive(int hp, int ep){
+	_hp = hp;
+	_ep = ep;
+	std::cout << _name << " is full of energy again!" << std::endl;
+}
