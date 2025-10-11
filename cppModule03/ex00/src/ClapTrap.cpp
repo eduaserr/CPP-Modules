@@ -8,8 +8,7 @@ ClapTrap::ClapTrap(const ClapTrap& data){
 	std::cout << "Copy constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string& name): _hp(10), _ep(10), _ad(0){
-	this->_name = name;
+ClapTrap::ClapTrap(const std::string& name): _name(name), _hp(10), _ep(10), _ad(0){
 	std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
 
@@ -20,24 +19,28 @@ ClapTrap::~ClapTrap(){
 void	ClapTrap::attack(const std::string& target)
 {
 	if (!this->_ep)
-		std::cout << "No energy left!" << std::endl;
+		std::cout << _name << " can't attack " << target << ", no energy left!" << std::endl;
 	else if (this->_ep > 0 && this->_hp > 0){
-		setEp(getEp() - 1);
 		std::cout << "Claptrap " << _name << " attacks " << target << ", causing " << _ad << " points of damage!" << std::endl;
 	}
 }
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-	if (this->_ep > 0 && this->_hp > 0){
-		std::cout << "Claptrap " << _name << " received " << amount << " points of damage" << std::endl;
+	if (this->_hp > 0){
+		std::cout << "Claptrap " << _name << " received -" << amount << " points of damage" << std::endl;
 		setHp(getHp() - amount);
 	}
+	if (_hp < 1)
+		std::cout << _name << " fainted" << std::endl;
 }
 void	ClapTrap::beRepaired(unsigned int amount)
 {
+	if (!this->_ep)
+		std::cout << _name << " can't repair, no energy left!" << std::endl;
 	if (this->_ep > 0 && this->_hp > 0){
-		std::cout << "Claptrap " << _name << " repaired " << amount << " points of damage" << std::endl;
+		std::cout << "Claptrap " << _name << " repaired +" << amount << " health points" << std::endl;
 		setHp(getHp() + amount);
+		_ep--;
 	}
 }
 
@@ -54,16 +57,16 @@ void	ClapTrap::setEp(int ep){
 	this->_ep = ep;
 }
 
-std::string	ClapTrap::getName(){
+std::string	ClapTrap::getName() const {
 	return (this->_name);
 }
-int	ClapTrap::getHp(){
+int	ClapTrap::getHp() const {
 	return (this->_hp);
 }
-int	ClapTrap::getAd(){
+int	ClapTrap::getAd() const {
 	return (this->_ad);
 }
-int	ClapTrap::getEp(){
+int	ClapTrap::getEp() const {
 	return (this->_ep);
 }
 
