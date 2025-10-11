@@ -3,15 +3,24 @@
 ClapTrap::ClapTrap(): _name("noName"), _hp(10), _ep(10), _ad(0){
 	std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
-ClapTrap::ClapTrap(const ClapTrap& data){
-	*this = data;
-	std::cout << "Copy constructor called" << std::endl;
+ClapTrap::ClapTrap(const ClapTrap& bot): _name(bot._name),  _hp(bot._hp),  _ep(bot._ep), _ad(bot._ad){
+	std::cout << "Copy constructor called for " << _name << std::endl;
 }
-
+ClapTrap& ClapTrap::operator=(const ClapTrap& bot)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &bot)
+	{
+		_name = bot._name;
+		_hp = bot._hp;
+		_ep = bot._ep;
+		_ad = bot._ad;
+	}
+	return (*this);
+}
 ClapTrap::ClapTrap(const std::string& name): _name(name), _hp(10), _ep(10), _ad(0){
 	std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
-
 ClapTrap::~ClapTrap(){
 	std::cout << "Destructor bot " << _name << " called" << std::endl;
 }
@@ -37,6 +46,8 @@ void	ClapTrap::beRepaired(unsigned int amount)
 {
 	if (!this->_ep)
 		std::cout << _name << " can't repair, no energy left!" << std::endl;
+	else if (this->_hp + amount > 10)
+		amount = 10 - _hp;
 	if (this->_ep > 0 && this->_hp > 0){
 		std::cout << "Claptrap " << _name << " repaired +" << amount << " health points" << std::endl;
 		setHp(getHp() + amount);
@@ -70,7 +81,7 @@ int	ClapTrap::getEp() const {
 	return (this->_ep);
 }
 
-bool	ClapTrap::isAlive() {
+bool	ClapTrap::isAlive() const {
 	std::cout << _name << ": hp left " << _hp << std::endl;
 	if (this->_hp < 1)
 		std::cout << _name << " has no more health points left!" << std::endl;
