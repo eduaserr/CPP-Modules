@@ -1,9 +1,9 @@
 #include "../inc/ClapTrap.hpp"
 
-ClapTrap::ClapTrap(): _name("noName"), _hp(10), _ep(10), _ad(0){
+ClapTrap::ClapTrap(): _name("noName"), _hp(10), _ep(10), _ad(0), _item(0){
 	std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
-ClapTrap::ClapTrap(const ClapTrap& bot): _name(bot._name),  _hp(bot._hp),  _ep(bot._ep), _ad(bot._ad){
+ClapTrap::ClapTrap(const ClapTrap& bot): _name(bot._name),  _hp(bot._hp),  _ep(bot._ep), _ad(bot._ad), _item(bot._item){
 	std::cout << "Copy constructor called for " << _name << std::endl;
 }
 ClapTrap& ClapTrap::operator=(const ClapTrap& bot)
@@ -18,7 +18,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& bot)
 	}
 	return (*this);
 }
-ClapTrap::ClapTrap(const std::string& name): _name(name), _hp(10), _ep(10), _ad(0){
+ClapTrap::ClapTrap(const std::string& name): _name(name), _hp(10), _ep(10), _ad(0), _item(0){
 	std::cout << "Constructor bot " << _name << " called" << std::endl;
 }
 ClapTrap::~ClapTrap(){
@@ -37,6 +37,8 @@ void	ClapTrap::takeDamage(unsigned int amount)
 {
 	if (this->_hp > 0){
 		std::cout << "Claptrap " << _name << " received -" << amount << " points of damage" << std::endl;
+		if ((_hp - (int)amount) < 0)
+			amount = _hp;
 		setHp(getHp() - amount);
 	}
 	if (_hp < 1)
@@ -67,6 +69,9 @@ void	ClapTrap::setAd(int ad){
 void	ClapTrap::setEp(int ep){
 	this->_ep = ep;
 }
+void	ClapTrap::setItem(int item){
+	this->_item = item;
+}
 
 std::string	ClapTrap::getName() const {
 	return (this->_name);
@@ -79,6 +84,9 @@ int	ClapTrap::getAd() const {
 }
 int	ClapTrap::getEp() const {
 	return (this->_ep);
+}
+int	ClapTrap::getItem() const {
+	return (this->_item);
 }
 
 bool	ClapTrap::isAlive() const {

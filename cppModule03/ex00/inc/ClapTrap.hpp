@@ -10,6 +10,7 @@ private:
 	int			_hp;
 	int			_ep;
 	int			_ad;
+	int			_item;
 public:
 	ClapTrap();
 	ClapTrap(const ClapTrap& data);
@@ -21,11 +22,13 @@ public:
 	void	setHp(int hp);
 	void	setEp(int ep);
 	void	setAd(int ad);
+	void	setItem(int item);
 
 	std::string	getName() const;
 	int	getHp() const;
 	int	getEp() const;
 	int	getAd() const;
+	int	getItem() const;
 	void	attack(const std::string& target);
 	void	takeDamage(unsigned int amount);
 	void	beRepaired(unsigned int amount);
