@@ -18,26 +18,5 @@ public:
 	virtual void	makeSound() const;
 };
 
-class Dog : public Animal {
-public:
-	Dog();
-	Dog(const Dog& data);
-	Dog& operator=(const Dog& data);
-	~Dog();
-
-	void	makeSound() const;
-};
-
-class Cat : public Animal {
-public:
-	Cat();
-	Cat(const Cat& data);
-	Cat& operator=(const Cat& data);
-	~Cat();
-
-	void	makeSound() const;
-};
-
 // crear class wrongAnimal
-// se puede separar por archivos Dog.cpp Cat.cpp...
 #endif
