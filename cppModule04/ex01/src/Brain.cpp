@@ -1,30 +1,33 @@
 #include "../inc/Brain.hpp"
 
-Brain::Brain() : _type("Brain"){
-	std::cout << _type << " default constructor" << std::endl;
+Brain::Brain(){
+	for (int i = 0; i < 100; i++)
+		_ideas[i] = "";
+	std::cout << "Brain default constructor" << std::endl;
 }
-Brain::Brain(const Brain& data) : _type(data._type){
+Brain::Brain(const Brain& data){
+	for (int i = 0; i < 100; i++)
+			_ideas[i] = data._ideas[i];
 	std::cout << "Brain copy constructor" << std::endl;
 }
-Brain::Brain(const std::string& type) : _type(type){
-	std::cout << "Brain constructor with type" << std::endl;
-}
 Brain& Brain::operator=(const Brain& data){
-	std::cout << _type << " copy assignment operator called" << std::endl;
+	std::cout << "Brain copy assignment operator called" << std::endl;
 	if (this != &data)
-		_type = data._type;
+	{
+		for (int i = 0; i < 100; i++)
+			_ideas[i] = data._ideas[i];
+	}
 	return (*this);
 }
 Brain::~Brain(){
 	std::cout << "Brain destructor" << std::endl;
 }
 
-void	Brain::setType(const std::string& type){
-	_type = type;
+void	Brain::setIdea(int i, const std::string& idea){
+	_ideas[i] = idea;
 }
-std::string	Brain::getType() const{
-	return (this->_type);
+std::string	Brain::getIdea(int i) const{
+	if (i >= 0 && i < 100)
+	return (this->_ideas[i]);
 }
-void	Brain::makeSound() const{
-	std::cout << _type << ": sound" << std::endl;
-}
+

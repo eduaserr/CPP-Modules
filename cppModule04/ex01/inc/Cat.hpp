@@ -2,6 +2,7 @@
 #define CAT_HPP
 
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Cat : public Animal {
 	private:
@@ -13,6 +14,8 @@ public:
 	~Cat();
 
 	void	makeSound() const;
+	Brain*	Cat::getBrain() const;
+	void	Cat::setBrain(const Brain& brain);
 };
 
 #endif

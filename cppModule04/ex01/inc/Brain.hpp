@@ -6,17 +6,14 @@
 class Brain {
 protected:
 	std::string _ideas[100];
-	std::string _type;
 public:
 	Brain();
 	Brain(const Brain& data);
-	Brain(const std::string& type);
 	Brain& operator=(const Brain& data);
-	virtual ~Brain();
+	~Brain();
 
-	std::string	getType() const;
-	void	setType(const std::string& type);
-	virtual void	makeSound() const;
+	std::string	getIdea(int i) const;
+	void	setIdea(int i, const std::string& idea);
 };
 
 #endif

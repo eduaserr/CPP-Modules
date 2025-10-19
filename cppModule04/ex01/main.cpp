@@ -9,6 +9,7 @@ int main() {
 	Animal* def = new Animal();
 	Animal* toby = new Dog();
 	Animal* sasha = new Cat();
+
 	std::cout << std::endl;
 	std::cout << sasha->getType() << std::endl;
 	std::cout << toby->getType() << std::endl;
