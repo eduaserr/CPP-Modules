@@ -28,6 +28,7 @@ void	Brain::setIdea(int i, const std::string& idea){
 }
 std::string	Brain::getIdea(int i) const{
 	if (i >= 0 && i < 100)
-	return (this->_ideas[i]);
+		return (this->_ideas[i]);
+	return "";
 }
 

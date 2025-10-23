@@ -28,3 +28,6 @@ std::string	Animal::getType() const{
 void	Animal::makeSound() const{
 	std::cout << _type << ": sound" << std::endl;
 }
+Brain*	Animal::getBrain() const{
+	return NULL;
+}

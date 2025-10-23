@@ -14,8 +14,8 @@ public:
 	~Cat();
 
 	void	makeSound() const;
-	Brain*	Cat::getBrain() const;
-	void	Cat::setBrain(const Brain& brain);
+	Brain*	getBrain() const;
+	void	setBrain(const Brain& brain);
 };
 
 #endif

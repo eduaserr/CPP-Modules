@@ -10,14 +10,16 @@ Cat& Cat::operator=(const Cat& data){
 	std::cout << _type << " copy assignment operator called" << std::endl;
 	if (this != &data){
 		Animal::operator=(data);
-		delete _attribute;
+		if (_attribute)
+			delete _attribute;
 		this->_attribute = new Brain(*data._attribute);
 	}
 	return (*this);
 }
 Cat::~Cat(){
-	delete _attribute;
 	std::cout << _type << " destructor" << std::endl;
+	if (_attribute)
+		delete _attribute;
 }
 void	Cat::makeSound() const{
 	std::cout << _type << ": miau" << std::endl;
@@ -28,6 +30,7 @@ Brain*	Cat::getBrain() const{
 }
 
 void	Cat::setBrain(const Brain& brain){
-	delete _attribute;
+	if (_attribute)
+		delete _attribute;
 	this->_attribute = new Brain(brain);
 }
