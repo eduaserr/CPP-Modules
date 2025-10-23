@@ -60,13 +60,13 @@ int main() {
 	std::cout << "\n	====== Check Ideas ======\n" << std::endl;
 	checkIdeas(animals, 10);
 
-	std::cout << "\n	====== Stack memory ======\n" << std::endl;
+	std::cout << "\n	====== Deep copy in Stack memory ======\n" << std::endl;
 	Dog Tob(*(Dog*)animals[1]);
 	Tob.getBrain()->setIdea(0, "BARK!");
 	std::cout << "\nOld idea was "<< animals[1]->getBrain()->getIdea(0);
 	std::cout << ". New idea discover "<< Tob.getBrain()->getIdea(0) << std::endl;
 
-	std::cout << "\n	====== Heap memory ======\n" << std::endl;
+	std::cout << "\n	====== Deep copy in Heap memory ======\n" << std::endl;
 
 	Dog *Pob(new Dog(*(Dog*)animals[1]));
 	Pob->getBrain()->setIdea(0, "BARK!");
