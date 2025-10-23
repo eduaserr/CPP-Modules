@@ -2,8 +2,6 @@
 #include "inc/Brain.hpp"
 #include "inc/Dog.hpp"
 #include "inc/Cat.hpp"
-#include "inc/WrongAnimal.hpp"
-#include "inc/WrongCat.hpp"
 
 static Cat*	catIdeas()
 {
