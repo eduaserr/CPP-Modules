@@ -19,6 +19,11 @@ public:
 
 	void	beSigned(Bureaucrat& a);
 
+	const	std::string& getName() const;
+	int		getSignedGrade() const;
+	int		getExecGrade() const;
+	bool	getSigned() const;
+
 	class IsSigned : public std::exception {
 	public:
 		virtual const char *what() const throw();

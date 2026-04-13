@@ -3,12 +3,14 @@
 Bureaucrat::Bureaucrat(): _name("Default"), _grade(150){
 	std::cout << "Bureaucrat default constructor" << std::endl;
 }
-Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade){
+Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name){
 	std::cout << "Bureaucrat constructor with name and grade" << std::endl;
-	if (_grade < 1)
+	if (grade < 1)
 		throw GradeTooHighException();
-	if (_grade > 150)
+	else if (grade > 150)
 		throw GradeTooLowException();
+	else
+		this->_grade = grade;
 }
 Bureaucrat::Bureaucrat(const Bureaucrat& data): _name(data._name), _grade(data._grade){
 	std::cout << "Bureaucrat copy constructor" << std::endl;
@@ -42,7 +44,19 @@ int Bureaucrat::getGrade() const
 }
 void Bureaucrat::setGrade(int grade)
 {
-	this->_grade = grade;
+	if (grade < 1)
+		throw GradeTooHighException();
+	else if (grade > 150)
+		throw GradeTooLowException();
+	else
+		this->_grade = grade;
+}
+
+void Bureaucrat::signForm(std::string formName, bool wasSigned) {
+	if (wasSigned)
+		std::cout << this->getName() << " 🤹 signs " << formName << " 📝\n";
+	else
+		std::cout << this->getName() << " 🤹 cannot sign " << formName << " 📝\n";
 }
 
 void Bureaucrat::incrementGrade() {
