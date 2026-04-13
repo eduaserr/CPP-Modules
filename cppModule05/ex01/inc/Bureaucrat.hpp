@@ -3,9 +3,12 @@
 
 #include <iostream>
 
+# define MAX_GRADE 1
+# define MIN_GRADE 150
+
 class Bureaucrat {
 private:
-	const std::string	_name;
+	std::string const	_name;
 	int					_grade;
 
 public:
@@ -21,7 +24,7 @@ public:
 	void		incrementGrade();
 	void		decrementGrade();
 
-	void	signForm();
+	void	signForm(std::string formName, bool wasSigned);
 
 	class GradeTooHighException : public std::exception {
 	public:
