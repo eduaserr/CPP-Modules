@@ -7,6 +7,10 @@ Form::Form(const Form& data):_name(data._name), _signed(false), _sigGrade(data._
 	std::cout << "Form copy constructor with class" << std::endl;
 }
 Form::Form(const std::string& name, int sigGrade, int execGrade): _name(name), _signed(false), _sigGrade(sigGrade), _execGrade(execGrade){
+	if (sigGrade < 1 || execGrade < 1)
+		throw GradeTooHighException();
+	if (sigGrade > 150 || execGrade > 150)
+		throw GradeTooLowException();
 	std::cout << "Form copy constructor with parameters" << std::endl;
 }
 Form& Form::operator=(const Form& data)
@@ -20,7 +24,7 @@ std::ostream& operator<<(std::ostream& os, const Form& obj)
 {
 	os << obj.getName() << ", Form with grade to sign " << obj.getSignedGrade() <<
 		" and grade to execute " << obj.getExecGrade() << " is";
-	if (!obj.getSigned())
+	if (obj.getSigned())
 		os << " signed";
 	else
 		os << " not signed";
@@ -34,19 +38,9 @@ void	Form::beSigned(Bureaucrat& a)
 {
 	if (_signed)
 		throw IsSigned();
-	if (_sigGrade < 1)
-		throw GradeTooHighException();
-	if (_sigGrade > 150)
-		throw GradeTooLowException();
-	if (a.getGrade() <= this->getSignedGrade()) {
-		this->_signed = true;
-		a.signForm(this->getName(), this->_signed);
-		std::cout <<"The form "<< this->getName() <<" has been signed by "<< a.getName() << std::endl;
-	}
-	else {
-		std::cout <<"The form "<< this->getName() <<" has not been signed by "<< a.getName() << std::endl;
+	if (a.getGrade() > this->getSignedGrade())
 		throw Form::GradeTooLowException();
-	}
+	this->_signed = true;
 }
 
 const std::string& Form::getName() const {

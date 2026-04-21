@@ -1,6 +1,8 @@
 #ifndef FORM_HPP
 #define FORM_HPP
 
+class Bureaucrat;
+
 #include "Bureaucrat.hpp"
 
 class Form {
