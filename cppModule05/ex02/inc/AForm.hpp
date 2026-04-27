@@ -12,16 +12,17 @@ private:
 	const int			_sigGrade;
 	const int			_execGrade;
 
+	virtual void	executeSuperClassForm(Bureaucrat const &executor) const = 0;
+
 public:
 	AForm();
 	AForm(const std::string& name, int sigGrade, int execGrade);
 	AForm(const AForm& data);
 	AForm& operator=(const AForm& data);
-	~AForm();
+	virtual ~AForm();
 
-	virtual void	method() const = 0;
 	void			beSigned(Bureaucrat& a);
-	void			execute(Bureaucrat const&) const;
+	void			execute(Bureaucrat const& exec) const;
 
 	const	std::string& getName() const;
 	int		getSignedGrade() const;
