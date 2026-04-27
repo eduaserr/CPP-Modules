@@ -2,9 +2,9 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 # define MAX_GRADE 1
 # define MIN_GRADE 150
@@ -27,7 +27,7 @@ public:
 	void		incrementGrade();
 	void		decrementGrade();
 
-	void	signForm(Form& formName);
+	void	signForm(AForm& form);
 
 	class GradeTooHighException : public std::exception {
 	public:
