@@ -23,6 +23,13 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 	std::cout << "ShrubberyCreationForm destructor" << std::endl;
 }
 
-void ShrubberyCreationForm::method() const {
-	// TODO: Implementar creación de archivo con ASCII trees
+void ShrubberyCreationForm::executeSuperClassForm(Bureaucrat const& executor) const {
+	(void)executor;
+	std::string name = _target + "_shruberry";
+	std::ofstream file(name.c_str());
+	if (!file.is_open())
+		throw std::runtime_error("Error opening file");
+	file << TREE;
+	file.close();
+	std::cout << "Shrubbery planted in " << name << std::endl;
 }

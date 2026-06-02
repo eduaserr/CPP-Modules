@@ -1,6 +1,5 @@
 #include "../inc/AForm.hpp"
 
-
 AForm::AForm():_name("Default"), _signed(false), _sigGrade(0), _execGrade(0){
 	std::cout << "AForm default constructor" << std::endl;
 }
@@ -57,8 +56,10 @@ bool AForm::getSigned() const {
 	return this->_signed;
 }
 
-void	execute(Bureaucrat const& exec) const {
-
+void	AForm::execute(Bureaucrat const& exec) const {
+	if (exec.getGrade() > this->_execGrade)
+		throw GradeTooLowException();
+	executeSuperClassForm(exec);
 }
 
 const char* AForm::GradeTooHighException::what() const throw() {

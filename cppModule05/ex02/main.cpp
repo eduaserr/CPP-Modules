@@ -1,57 +1,48 @@
 #include "inc/Bureaucrat.hpp"
-#include "inc/Form.hpp"
+#include "inc/ShrubberyCreationForm.hpp"
+#include "inc/RobotomyRequestForm.hpp"
+#include "inc/PresidentialPardonForm.hpp"
 #include <iostream>
 
-static void	showError(const std::exception& e)
-{
-    std::cout << "Exception: " << e.what() << std::endl;
-}
-
-int	main()
-{
-    std::cout << "\n=== 1) Valid objects ===\n";
+int main() {
+    std::cout << "=== Bureaucrat Creation ===\n";
     Bureaucrat boss("Boss", 1);
+    Bureaucrat mid("Mid", 50);
     Bureaucrat intern("Intern", 150);
-    Form easy("Easy", 150, 150);
-    Form hard("Hard", 1, 1);
+    std::cout << boss << "\n" << mid << "\n" << intern << "\n\n";
 
-    std::cout << boss << std::endl;
-    std::cout << intern << std::endl;
-    std::cout << easy << std::endl;
-    std::cout << hard << std::endl;
+    std::cout << "=== Forms Creation ===\n";
+    ShrubberyCreationForm shrub("home");
+    //RobotomyRequestForm robo("target");
+    //PresidentialPardonForm pardon("prisoner");
+    //std::cout << shrub << "\n" << robo << "\n" << pardon << "\n\n";
 
-    std::cout << "\n=== 2) Copy / assignment ===\n";
-    Bureaucrat copyBoss(boss);
-    Bureaucrat assigned("Tmp", 42);
-    assigned = intern;
-    Form copyForm(easy);
-    std::cout << copyBoss << std::endl;
-    std::cout << assigned << std::endl;
-    std::cout << copyForm << std::endl;
+    std::cout << "=== Sign & Execute: Shrubbery ===\n";
+    intern.signForm(shrub);		// fail: grade 150 > 145
+    boss.signForm(shrub);		// success
+    intern.executeForm(shrub);	// fail: not signed or low grade
+    boss.executeForm(shrub);	// success: creates file
+    std::cout << shrub << "\n\n";
 
-    std::cout << "\n=== 3) Grade limits ===\n";
-    try { Bureaucrat bad1("Bad1", 0); } catch (const std::exception& e) { showError(e); }
-    try { Bureaucrat bad2("Bad2", 151); } catch (const std::exception& e) { showError(e); }
-    try { Form bad3("Bad3", 0, 10); } catch (const std::exception& e) { showError(e); }
-    try { Form bad4("Bad4", 10, 151); } catch (const std::exception& e) { showError(e); }
+    /*std::cout << "=== Sign & Execute: Robotomy ===\n";
+    intern.signForm(robo);		// fail: grade 150 > 72
+    mid.signForm(robo);			// success
+    intern.executeForm(robo);	// fail: not signed or low grade
+    mid.executeForm(robo);		// fail: grade 50 > 45
+    boss.executeForm(robo);		// success: 50% chance
+    std::cout << robo << "\n\n";
 
-    try { boss.incrementGrade(); } catch (const std::exception& e) { showError(e); }
-    try { intern.decrementGrade(); } catch (const std::exception& e) { showError(e); }
+    std::cout << "=== Sign & Execute: Presidential ===\n";
+    intern.signForm(pardon);	// fail: grade 150 > 25
+    mid.signForm(pardon);		// success
+    intern.executeForm(pardon);	// fail: not signed or low grade
+    mid.executeForm(pardon);	// fail: grade 50 > 5
+    boss.executeForm(pardon);	// success
+    std::cout << pardon << "\n\n";*/
 
-    std::cout << "\n=== 4) beSigned() ===\n";
-    try { hard.beSigned(intern); } catch (const std::exception& e) { showError(e); }
-    hard.beSigned(boss);
-    std::cout << hard << std::endl;
-
-    std::cout << "\n=== 5) signForm() ===\n";
-    Form formOk("FormOk", 150, 20);
-    Form formKo("FormKo", 10, 20);
-
-    boss.signForm(formOk);     // should sign
-    intern.signForm(formKo);   // should fail
-
-    std::cout << formOk << std::endl;
-    std::cout << formKo << std::endl;
+    std::cout << "=== Grade Limits ===\n";
+    try { Bureaucrat bad("Bad", 0); } catch (const std::exception& e) { std::cout << "Error: " << e.what() << "\n"; }
+    try { Bureaucrat bad("Bad", 151); } catch (const std::exception& e) { std::cout << "Error: " << e.what() << "\n"; }
 
     return 0;
 }

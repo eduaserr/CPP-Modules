@@ -3,7 +3,7 @@ CC		= g++
 CFLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
 SRC		= main.cpp
-SRCS	= src/Bureaucrat.cpp src/Form.cpp
+SRCS	= src/Bureaucrat.cpp src/AForm.cpp src/ShrubberyCreationForm.cpp src/RobotomyRequestForm.cpp src/PresidentialPardonForm.cpp
 
 ### OBJS ###
 OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)

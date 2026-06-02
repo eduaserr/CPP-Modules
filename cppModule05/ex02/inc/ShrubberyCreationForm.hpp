@@ -1,13 +1,19 @@
 #ifndef SHRUBBERYCREATIONFORM_HPP
 #define SHRUBBERYCREATIONFORM_HPP
 
+#define TREE "   / \\   \n" \
+             "  /___\\  \n" \
+             " /     \\ \n" \
+             "/_______\\\n" \
+             "   | |   \n"
+
 #include "AForm.hpp"
 
 class ShrubberyCreationForm : public AForm {
 private:
 	std::string _target;
 
-	virtual void method() const;
+	virtual void executeSuperClassForm(Bureaucrat const& executor) const;
 
 public:
 	ShrubberyCreationForm(const std::string& target);
