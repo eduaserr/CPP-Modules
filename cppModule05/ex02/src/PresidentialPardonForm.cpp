@@ -23,6 +23,7 @@ PresidentialPardonForm::~PresidentialPardonForm() {
 	std::cout << "PresidentialPardonForm destructor" << std::endl;
 }
 
-void PresidentialPardonForm::method() const {
-	// TODO: Implementar mensaje de perdón por Zaphod Beeblebrox
+void PresidentialPardonForm::executeSuperClassForm(Bureaucrat const& executor) const {
+	(void)executor;
+	std::cout << _target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }

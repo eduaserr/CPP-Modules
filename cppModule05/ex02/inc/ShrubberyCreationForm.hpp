@@ -1,13 +1,17 @@
 #ifndef SHRUBBERYCREATIONFORM_HPP
 #define SHRUBBERYCREATIONFORM_HPP
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "AForm.hpp"
+
 #define TREE "   / \\   \n" \
              "  /___\\  \n" \
              " /     \\ \n" \
              "/_______\\\n" \
              "   | |   \n"
 
-#include "AForm.hpp"
 
 class ShrubberyCreationForm : public AForm {
 private:

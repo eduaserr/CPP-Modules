@@ -2,9 +2,12 @@
 #include "inc/ShrubberyCreationForm.hpp"
 #include "inc/RobotomyRequestForm.hpp"
 #include "inc/PresidentialPardonForm.hpp"
-#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 int main() {
+    srand(time(0));
+
     std::cout << "=== Bureaucrat Creation ===\n";
     Bureaucrat boss("Boss", 1);
     Bureaucrat mid("Mid", 50);
@@ -13,36 +16,33 @@ int main() {
 
     std::cout << "=== Forms Creation ===\n";
     ShrubberyCreationForm shrub("home");
-    //RobotomyRequestForm robo("target");
-    //PresidentialPardonForm pardon("prisoner");
-    //std::cout << shrub << "\n" << robo << "\n" << pardon << "\n\n";
+    RobotomyRequestForm robo("target");
+    PresidentialPardonForm pardon("prisoner");
+    std::cout << shrub << "\n" << robo << "\n" << pardon << "\n\n";
 
-    std::cout << "=== Sign & Execute: Shrubbery ===\n";
-    intern.signForm(shrub);		// fail: grade 150 > 145
-    boss.signForm(shrub);		// success
-    intern.executeForm(shrub);	// fail: not signed or low grade
+    std::cout << "=== Shrubbery ===\n";
+    intern.signForm(shrub);		// fail: 150 > 145
+    boss.signForm(shrub);		// success: 1 <= 145
+    boss.signForm(shrub);		// fail: already signed
+    intern.executeForm(shrub);	// fail: 150 > 137
     boss.executeForm(shrub);	// success: creates file
-    std::cout << shrub << "\n\n";
 
-    /*std::cout << "=== Sign & Execute: Robotomy ===\n";
-    intern.signForm(robo);		// fail: grade 150 > 72
-    mid.signForm(robo);			// success
-    intern.executeForm(robo);	// fail: not signed or low grade
-    mid.executeForm(robo);		// fail: grade 50 > 45
-    boss.executeForm(robo);		// success: 50% chance
-    std::cout << robo << "\n\n";
+    std::cout << "\n=== Robotomy ===\n";
+    intern.signForm(robo);		// fail: 150 > 72
+    mid.signForm(robo);			// success: 50 <= 72
+    boss.signForm(robo);		// fail: already signed
+    intern.executeForm(robo);	// fail: 150 > 45
+    mid.executeForm(robo);		// fail: 50 > 45
+    boss.executeForm(robo);		// success: 50/50
+    boss.executeForm(robo);		// success: 50/50 again
 
-    std::cout << "=== Sign & Execute: Presidential ===\n";
-    intern.signForm(pardon);	// fail: grade 150 > 25
-    mid.signForm(pardon);		// success
-    intern.executeForm(pardon);	// fail: not signed or low grade
-    mid.executeForm(pardon);	// fail: grade 50 > 5
+    std::cout << "\n=== Presidential ===\n";
+    intern.signForm(pardon);	// fail: 150 > 25
+    mid.signForm(pardon);		// fail: 50 > 25
+    boss.signForm(pardon);		// success: 1 <= 25
+    intern.executeForm(pardon);	// fail: 150 > 5
+    mid.executeForm(pardon);	// fail: 50 > 5
     boss.executeForm(pardon);	// success
-    std::cout << pardon << "\n\n";*/
-
-    std::cout << "=== Grade Limits ===\n";
-    try { Bureaucrat bad("Bad", 0); } catch (const std::exception& e) { std::cout << "Error: " << e.what() << "\n"; }
-    try { Bureaucrat bad("Bad", 151); } catch (const std::exception& e) { std::cout << "Error: " << e.what() << "\n"; }
 
     return 0;
 }
