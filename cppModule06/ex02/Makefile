@@ -1,9 +1,9 @@
-NAME    = scalarConverter
+NAME    = Base
 CC      = g++
 CFLAGS  = -Wall -Wextra -Werror -std=c++98
 
 SRC		= main.cpp
-SRCS	= ScalarConverter.cpp
+SRCS	= Base.cpp
 
 ### OBJS ###
 OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)

@@ -3,7 +3,7 @@ CC      = g++
 CFLAGS  = -Wall -Wextra -Werror -std=c++98
 
 SRC		= main.cpp
-SRCS	= serializer.cpp
+SRCS	= Serializer.cpp
 
 ### OBJS ###
 OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)
