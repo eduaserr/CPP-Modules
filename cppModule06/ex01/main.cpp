@@ -4,7 +4,7 @@
 int main() {
 	Data d;
 	d.id = 42;
-	d.name = "Bender";
+	d.name = "Default";
 	d.value = 3.14;
 
 	Data* original = &d;

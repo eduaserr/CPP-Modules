@@ -1,4 +1,4 @@
-#include "scalarConverter.hpp"
+#include "ScalarConverter.hpp"
 
 ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(const ScalarConverter& data) { (void)data; }
