@@ -10,7 +10,7 @@ int main()
 
 	Array<std::string> strings(2);
 	strings[0] = "hello";
-	strings[1] = "world";
+	strings[1] = "42";
 
 	Array<int> copy(ints);
 	copy[0] = 42;
