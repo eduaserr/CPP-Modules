@@ -7,12 +7,12 @@
 
 int main()
 {
-    std::srand(std::time(0));
+	std::srand(std::time(0));
 
-    Base *p = generate();
-    identify(p);
-    identify(*p);
+	Base *p = generate();
+	identify(p);
+	identify(*p);
 
-    delete p;
-    return 0;
+	delete p;
+	return 0;
 }
