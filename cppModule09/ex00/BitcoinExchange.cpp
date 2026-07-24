@@ -30,12 +30,11 @@ void BitcoinExchange::processInput(const std::string& filename)
 
 void BitcoinExchange::printDatabase() const
 {
-    std::map<std::string, float>::const_iterator it;
+	std::map<std::string, float>::const_iterator it;
 
-    for (it = _database.begin(); it != _database.end(); ++it)
-    {
-        std::cout << it->first << " -> " << it->second << std::endl;
-    }
+	for (it = _database.begin(); it != _database.end(); ++it) {
+		std::cout << it->first << " -> " << it->second << std::endl;
+	}
 }
 
 void BitcoinExchange::loadDatabase()
