@@ -1,20 +1,22 @@
-NAME	= RPN
+NAME = PmergeMe
 CC		= g++
-CFLAGS	= -Wall -Wextra -Werror -std=c++98
+CFLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
-P		= src/
-SRC		= main.cpp $(P)RPN.cpp
+SRC		= main.cpp
+SRCS	= src/PmergeMe.cpp
 
-OBJS	= $(SRC:.cpp=.o)
+### OBJS ###
+OBJS	= $(SRC:.cpp=.o) $(SRCS:.cpp=.o)
 
-all: $(NAME)
+### RULES ###
+all : $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "loading ..."
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "compiled successfully"
 
-%.o: %.cpp
+%.o : %.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

@@ -1,4 +1,4 @@
-#include "RPN.hpp"
+#include "../inc/RPN.hpp"
 
 RPN::RPN(){}
 RPN::RPN(const RPN& other){*this = other;}

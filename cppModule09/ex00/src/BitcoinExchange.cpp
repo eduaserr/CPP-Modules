@@ -1,4 +1,4 @@
-#include "BitcoinExchange.hpp"
+#include "../inc/BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange(){
 	loadDatabase();

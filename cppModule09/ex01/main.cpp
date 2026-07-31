@@ -1,4 +1,4 @@
-#include "RPN.hpp"
+#include "inc/RPN.hpp"
 
 int main(int ac, char **av)
 {
