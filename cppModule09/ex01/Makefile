@@ -1,8 +1,8 @@
-NAME	= BTC
+NAME	= RPN
 CC		= g++
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-SRC		= main.cpp
+SRC		= main.cpp RPN.cpp
 
 OBJS	= $(SRC:.cpp=.o)
 
