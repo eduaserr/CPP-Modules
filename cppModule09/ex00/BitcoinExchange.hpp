@@ -11,15 +11,18 @@
 class BitcoinExchange
 {
 private:
-	std::map<std::string, float> _database;
+	std::map<std::string, double> _database;
 
 	void loadDatabase();
 
-	//bool validateFormat(const std::string& line) const;
-	//bool validateDate(const std::string& date) const;
-	//bool validateValue(const std::string& value) const;
+	void validateFormat(const std::string& line, size_t pos) const;
+	void parseLine(const std::string& line);
+	bool checkDate(int year, int month, int day) const;
+	void validateDate(const std::string& date) const;
+	void validateValue(const std::string& value) const;
 
-	//float getExchangeRate(const std::string& date) const;
+	void printExchange(const std::string& date, const std::string& value) const;
+	double getExchangeRate(const std::string& date) const;
 
 
 public:
