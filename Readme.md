@@ -14,3 +14,12 @@ std::vector: (array dinámico) cuando quieres acceso rápido por índice y recor
 std::deque: cuando necesitas un comportamiento parecido al de un vector, pero con inserciones eficientes también al principio.
 
 ex00 lógica principal (uso de std::map, búsqueda con lower_bound(), validación de fechas y valores, y continuación tras errores)
+
+ex02 
+
+1 - formar parejas
+2 - ordenar cada pareja . Ej.: (av[a], av[a + 1]; av[a + 2], av[a + 3]);
+3 - separar mayores y menores 
+4 - ordenar recursivamente los mayores
+5 - insertar los menores (Main Chain)
+5.1 - Insertar Straggler
