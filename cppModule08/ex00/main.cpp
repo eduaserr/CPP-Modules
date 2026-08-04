@@ -8,7 +8,7 @@ int main()
 	try
 	{
 		std::vector<int> v;
-		for (int i; i < 10; i++){
+		for (int i = 0; i < 10; i++){
 			v.push_back(i);
 		}
 		std::vector<int>::iterator it = easyfind(v, 4);
