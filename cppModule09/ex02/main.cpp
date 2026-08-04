@@ -11,6 +11,7 @@ int main(int ac, char **av)
 	{
 		PmergeMe pmerge;
 		pmerge.processInput(av + 1);
+		pmerge.exec();
 	}
 	catch (const std::exception &e){
 		std::cerr << e.what() << std::endl;
