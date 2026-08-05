@@ -24,6 +24,7 @@ public:
 	void exec();
 	void mergeInsertVector(std::vector<int>& data);
 	void mergeInsertDeque(std::deque<int>& data);
+	std::vector<size_t> buildInsertionOrder(size_t pendingSize);
 	void printBefore() const;
 	void printAfter() const;
 };
