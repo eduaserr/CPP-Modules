@@ -8,6 +8,12 @@
 #include <cstdlib>
 #include <ctime>
 
+struct Pair
+{
+    int small;
+    int big;
+};
+
 class PmergeMe {
 private:
 	std::vector<int>	_vector;
@@ -22,9 +28,10 @@ public:
 	int parseNumber(const std::string& str) const;
 	void processInput(char **av);
 	void exec();
+	void sortPairsRecursive(std::vector<Pair>& pairs);
 	void mergeInsertVector(std::vector<int>& data);
 	void mergeInsertDeque(std::deque<int>& data);
-	std::vector<size_t> buildInsertionOrder(size_t pendingSize);
+	std::vector<int> buildInsertionOrder(size_t pendingSize);
 	void printBefore() const;
 	void printAfter() const;
 };
