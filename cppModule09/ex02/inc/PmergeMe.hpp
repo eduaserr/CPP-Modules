@@ -7,6 +7,7 @@
 #include <climits>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 struct Pair
 {

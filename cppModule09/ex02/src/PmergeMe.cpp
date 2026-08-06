@@ -159,31 +159,40 @@ void PmergeMe::sortPairsRecursive(std::vector<Pair>& pairs) {
     }
 
     // Insertar el resto de parejas utilizando Jacobsthal y búsqueda binaria acotada
-    for (size_t k = 1; k < order.size(); k++) {
-        size_t index = order[k];
-        Pair currentPair = pendingPairs[index];
+	for (size_t k = 1; k < order.size(); k++) {
+    	size_t index = order[k];
+    	Pair currentPair = pendingPairs[index];
 
-        // Acotamos el rango: buscamos la posición de la pareja que le ganó en el 'std::swap' de arriba
-        // Su pareja de comparación original está en pendingPairs[index + 1] o similar si se reordenó,
-        // pero la regla estricta nos permite buscar hasta donde se encuentre su '.big' original.
-        auto limite = std::find_if(mainChainPairs.begin(), mainChainPairs.end(), 
-            [&currentPair](const Pair& p) { return p.big == currentPair.big; });
+    // Buscamos manualmente el límite superior para C++98 sin usar lambda ni find_if
+    	std::vector<Pair>::iterator limite = mainChainPairs.end();
+    	for (std::vector<Pair>::iterator it = mainChainPairs.begin(); it != mainChainPairs.end(); ++it) {
+    	    if (it->big == currentPair.big) {
+    	        limite = it;
+    	        break;
+    	    }
+    	}
 
-        auto finRango = (limite != mainChainPairs.end()) ? limite : mainChainPairs.end();
+    	// Para el lower_bound de estructuras en C++98, definimos la comparación con una función tradicional
+    	// o simplemente usamos un bucle o una función auxiliar. Aquí usamos lower_bound con iterador explícito
+    	// pero necesitamos pasarle un objeto de comparación o hacerlo manualmente si no queremos crear un functor.
+    
+    	// Forma C++98 limpia usando un bucle de inserción directa para evitar problemas de plantillas con estructuras:
+    	std::vector<Pair>::iterator pos = mainChainPairs.begin();
+    	while (pos != limite && pos->big < currentPair.big) {
+    	    ++pos;
+    	}
 
-        // Búsqueda binaria personalizada para comparar estructuras basándonos en '.big'
-        auto pos = std::lower_bound(mainChainPairs.begin(), finRango, currentPair, 
-            [](const Pair& a, const Pair& b) { return a.big < b.big; });
-
-        mainChainPairs.insert(pos, currentPair);
-    }
+    mainChainPairs.insert(pos, currentPair);
+}
 
     // 4. Insertar la pareja huérfana si existía
-    if (hasStragglerPair) {
-        auto pos = std::lower_bound(mainChainPairs.begin(), mainChainPairs.end(), stragglerPair,
-            [](const Pair& a, const Pair& b) { return a.big < b.big; });
-        mainChainPairs.insert(pos, stragglerPair);
-    }
+	if (hasStragglerPair) {
+    	std::vector<Pair>::iterator pos = mainChainPairs.begin();
+    	while (pos != mainChainPairs.end() && pos->big < stragglerPair.big) {
+    	    ++pos;
+    	}
+    	mainChainPairs.insert(pos, stragglerPair);
+	}
 
     // Devuelve el vector de parejas completamente ordenado por el valor '.big'
     pairs = mainChainPairs;
@@ -227,18 +236,16 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 		size_t index = order[k];
 		Pair elementoActual = pending[index];
 
-		auto limiteSuperior = std::find(mainChain.begin(), mainChain.end(), elementoActual.big);
-		auto pos = std::lower_bound(mainChain.begin(), limiteSuperior, elementoActual.small);
+		std::vector<int>::iterator limiteSuperior = std::find(mainChain.begin(), mainChain.end(), elementoActual.big);
+		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), limiteSuperior, elementoActual.small);
 		mainChain.insert(pos, elementoActual.small);
 		//std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pending[index]);
 		//mainChain.insert(pos, pending[index]);
 	}
 
 	if ((data.size() % 2 != 0)) {
-		auto pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-   		mainChain.insert(pos, straggler);
-		//std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-		//mainChain.insert(pos, straggler);
+		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+    	mainChain.insert(pos, straggler);
 	}
 
 	data = mainChain;
@@ -251,8 +258,17 @@ void PmergeMe::mergeInsertDeque(std::deque<int>& data) {
 void PmergeMe::exec() {
 
 	printBefore();
+	std::clock_t startVector = std::clock();
 	mergeInsertVector(_vector);
+	std::clock_t endVector = std::clock();
 	//mergeInsertDeque(_deque);
 	printAfter();
-
+	double vectorTime = static_cast<double>(endVector - startVector) * 1000000.0 / CLOCKS_PER_SEC;
+	std::cout
+    << "Time to process a range of "
+    << _vector.size()
+    << " elements with std::vector : "
+    << vectorTime
+    << " us"
+    << std::endl;
 }
