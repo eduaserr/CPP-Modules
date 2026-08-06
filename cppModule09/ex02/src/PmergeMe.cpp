@@ -120,83 +120,6 @@ std::vector<int> PmergeMe::buildInsertionOrder(size_t pendingSize)
 	return order;
 }
 
-void PmergeMe::sortPairsRecursive(std::vector<Pair>& pairs) {
-    // Caso base: si hay 1 o 0 parejas, ya están ordenadas
-    if (pairs.size() <= 1) {
-        return;
-    }
-
-    // 1. Dividir las parejas en dos grupos para ordenarlas de forma recursiva
-    // Creamos un vector para los elementos de la cadena principal en este nivel de parejas
-    std::vector<Pair> mainChainPairs;
-    std::vector<Pair> pendingPairs;
-
-    // Emparejamos las parejas existentes de dos en dos y comparamos sus valores '.big'
-    for (size_t i = 0; i + 1 < pairs.size(); i += 2) {
-        if (pairs[i].big > pairs[i + 1].big) {
-            std::swap(pairs[i], pairs[i + 1]);
-        }
-        pendingPairs.push_back(pairs[i]);      // La pareja con el '.big' menor es "pending"
-        mainChainPairs.push_back(pairs[i + 1]);  // La pareja con el '.big' mayor va a la "main chain"
-    }
-
-    // Guardar la pareja huérfana si el número de parejas actuales es impar
-    bool hasStragglerPair = (pairs.size() % 2 != 0);
-    Pair stragglerPair;
-    if (hasStragglerPair) {
-        stragglerPair = pairs.back();
-    }
-
-    // 2. LLAMADA RECURSIVA: Ordenar la cadena principal de parejas
-    sortPairsRecursive(mainChainPairs);
-
-    // 3. Generar el orden de inserción de Jacobsthal para las parejas pendientes
-    std::vector<int> order = buildInsertionOrder(pendingPairs.size());
-
-    // La primera pareja pendiente siempre se inserta al principio de la cadena principal de parejas gratis
-    if (!pendingPairs.empty()) {
-        mainChainPairs.insert(mainChainPairs.begin(), pendingPairs[0]);
-    }
-
-    // Insertar el resto de parejas utilizando Jacobsthal y búsqueda binaria acotada
-	for (size_t k = 1; k < order.size(); k++) {
-    	size_t index = order[k];
-    	Pair currentPair = pendingPairs[index];
-
-    // Buscamos manualmente el límite superior para C++98 sin usar lambda ni find_if
-    	std::vector<Pair>::iterator limite = mainChainPairs.end();
-    	for (std::vector<Pair>::iterator it = mainChainPairs.begin(); it != mainChainPairs.end(); ++it) {
-    	    if (it->big == currentPair.big) {
-    	        limite = it;
-    	        break;
-    	    }
-    	}
-
-    	// Para el lower_bound de estructuras en C++98, definimos la comparación con una función tradicional
-    	// o simplemente usamos un bucle o una función auxiliar. Aquí usamos lower_bound con iterador explícito
-    	// pero necesitamos pasarle un objeto de comparación o hacerlo manualmente si no queremos crear un functor.
-    
-    	// Forma C++98 limpia usando un bucle de inserción directa para evitar problemas de plantillas con estructuras:
-    	std::vector<Pair>::iterator pos = mainChainPairs.begin();
-    	while (pos != limite && pos->big < currentPair.big) {
-    	    ++pos;
-    	}
-
-    mainChainPairs.insert(pos, currentPair);
-}
-
-    // 4. Insertar la pareja huérfana si existía
-	if (hasStragglerPair) {
-    	std::vector<Pair>::iterator pos = mainChainPairs.begin();
-    	while (pos != mainChainPairs.end() && pos->big < stragglerPair.big) {
-    	    ++pos;
-    	}
-    	mainChainPairs.insert(pos, stragglerPair);
-	}
-
-    // Devuelve el vector de parejas completamente ordenado por el valor '.big'
-    pairs = mainChainPairs;
-}
 void PmergeMe::mergeInsertVector(std::vector<int>& data)
 {
 	if (data.size() <= 1)
@@ -214,9 +137,7 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 	}
 
 	bool hasStraggler = (data.size() % 2 != 0);
-    int straggler = hasStraggler ? data.back() : 0;
-
-	sortPairsRecursive(pair);
+	int straggler = hasStraggler ? data.back() : 0;
 
 	std::vector<int> mainChain;
 	std::vector<Pair> pending;
@@ -225,8 +146,8 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 		pending.push_back(pair[i]);
 		mainChain.push_back(pair[i].big);
 	}
-	if (!pending.empty())
-        mainChain.insert(mainChain.begin(), pending[0].small);
+	//if (!pending.empty())
+	//	mainChain.insert(mainChain.begin(), pending[0].small);
 
 	std::vector<int> order = buildInsertionOrder(pending.size());
 	printOrder(order);
@@ -245,7 +166,7 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 
 	if ((data.size() % 2 != 0)) {
 		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-    	mainChain.insert(pos, straggler);
+		mainChain.insert(pos, straggler);
 	}
 
 	data = mainChain;
