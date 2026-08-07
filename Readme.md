@@ -23,3 +23,11 @@ ex02
 4 - ordenar recursivamente los mayores
 5 - insertar los menores (Main Chain)
 5.1 - Insertar Straggler
+
+Merge-Insertion Sort:
+
+Step 1: Divide the keys into ⌈n / 2⌉ pairs, leaving one key out if n is odd. Call the larger key of the i‑th pair aᵢ and the smaller bᵢ.
+
+Step 2: Sort the ⌈n / 2⌉ aᵢ’s recursively with the Ford–Johnson algorithm. Keep the pair correspondence — if aᵢ is renamed aⱼ, re‑index bᵢ as bⱼ.
+
+Step 3: We now have a known partial order captured essentially by the inequalities.

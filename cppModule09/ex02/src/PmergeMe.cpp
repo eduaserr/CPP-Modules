@@ -55,10 +55,24 @@ void	printJacob(std::vector<size_t>& Jacob)
 	}
 	std::cout << std::endl;
 }
-void	printOrder(std::vector<int>& order)
+void	printdata(std::vector<int>& data)
 {
-	for (size_t i = 0; i < order.size(); i++) {
-		std::cout << "Order = " << order[i] << " | ";
+	for (size_t i = 0; i < data.size(); i++) {
+		std::cout << "data [" << i << "] = " << data[i] << " | ";
+	}
+	std::cout << std::endl;
+}
+void	printMain(std::vector<int>& main)
+{
+	for (size_t i = 0; i < main.size(); i++) {
+		std::cout << "MainChain [" << i << "] = " << main[i] << " | ";
+	}
+	std::cout << std::endl;
+}
+void	printPend(std::vector<int>& pend)
+{
+	for (size_t i = 0; i < pend.size(); i++) {
+		std::cout << "Pending  [" << i << "] = " << pend[i] << " | ";
 	}
 	std::cout << std::endl;
 }
@@ -93,7 +107,7 @@ std::vector<size_t> limitsJacobsthal(int size) {
 	}
 	return jacob; // Contiene por ejemplo: 1, 1, 3, 5, 11, 21...
 }
-std::vector<int> PmergeMe::buildInsertionOrder(size_t pendingSize)
+std::vector<int> PmergeMe::buildInsertionOrder(size_t pendingSize, std::vector<int> &mainChain, std::vector<int> &pending)
 {
 	std::vector<size_t> jacob = limitsJacobsthal(pendingSize);
 	std::vector<int> order;
@@ -101,32 +115,27 @@ std::vector<int> PmergeMe::buildInsertionOrder(size_t pendingSize)
 	printJacob(jacob);
 	// siempre se inserta el primero
 	if (pendingSize > 0)
-		order.push_back(0);
+		mainChain.push_back(pending[0]);
 
-	size_t prev = 1;
+	//size_t prev = 1;
 
-	for (size_t j = 2; j < jacob.size(); j++)
+	//for (size_t i = 2;)
+	/* for (size_t j = 2; j < jacob.size(); j++)
 	{
 		size_t current = std::min((size_t)jacob[j], pendingSize);
 
 		while (current > prev)
 		{
-			order.push_back(current - 1); // pasar de b1,b2... a índice 0,1...
+			mainChain.push_back(current - 1); // pasar de b1,b2... a índice 0,1...
 			current--;
 		}
 
 		prev = jacob[j];
-	}
+	} */
 	return order;
 }
-
-void PmergeMe::mergeInsertVector(std::vector<int>& data)
-{
-	if (data.size() <= 1)
-		return ;
-
+std::vector<Pair> makePairs(std::vector<int> &data) {
 	std::vector<Pair> pair;
-
 	for (size_t i = 0; i + 1 < data.size(); i += 2) {
 		Pair pairs;
 		if (data[i] > data[i + 1])
@@ -135,39 +144,54 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 		pairs.big = data[i + 1];
 		pair.push_back(pairs);
 	}
+	return (pair);
+}
+void PmergeMe::mergeInsertVector(std::vector<int>& data)
+{
+	if (data.size() <= 1)
+		return ;
+
+	std::vector<Pair> pairs = makePairs(data);
 
 	bool hasStraggler = (data.size() % 2 != 0);
 	int straggler = hasStraggler ? data.back() : 0;
 
 	std::vector<int> mainChain;
-	std::vector<Pair> pending;
+	std::vector<int> pending;
 
-	for (size_t i = 0; i < pair.size(); i++) {
-		pending.push_back(pair[i]);
-		mainChain.push_back(pair[i].big);
+	for (size_t i = 0; i < pairs.size(); i++) {
+		pending.push_back(pairs[i].small);
+		mainChain.push_back(pairs[i].big);
 	}
-	//if (!pending.empty())
-	//	mainChain.insert(mainChain.begin(), pending[0].small);
-
-	std::vector<int> order = buildInsertionOrder(pending.size());
-	printOrder(order);
+	if (straggler)
+		pending.push_back(straggler);
+	printdata(data);
+	printMain(mainChain);
+	printPend(pending);
 	mergeInsertVector(mainChain);
+	if (!pending.empty())
+		mainChain.insert(mainChain.begin(), pending[0]);
+	std::cout << " __ Pre buildInsert __ " << std::endl;
+	printMain(mainChain);
+	printPend(pending);
+	std::cout << std::endl;
+	//std::vector<int> order = buildInsertionOrder(pending.size(), mainChain, pending);
+	
+	//for (size_t k = 1; k < order.size(); k++) {
+	//	size_t index = order[k];
+	//	Pair elementoActual = pending[index];
 
-	for (size_t k = 1; k < order.size(); k++) {
-		size_t index = order[k];
-		Pair elementoActual = pending[index];
-
-		std::vector<int>::iterator limiteSuperior = std::find(mainChain.begin(), mainChain.end(), elementoActual.big);
-		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), limiteSuperior, elementoActual.small);
-		mainChain.insert(pos, elementoActual.small);
+	//	std::vector<int>::iterator limiteSuperior = std::find(mainChain.begin(), mainChain.end(), elementoActual.big);
+	//	std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), limiteSuperior, elementoActual.small);
+	//	mainChain.insert(pos, elementoActual.small);
 		//std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pending[index]);
 		//mainChain.insert(pos, pending[index]);
-	}
+	//}
 
-	if ((data.size() % 2 != 0)) {
-		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-		mainChain.insert(pos, straggler);
-	}
+	//if ((data.size() % 2 != 0)) {
+	//	std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+	//	mainChain.insert(pos, straggler);
+	//}
 
 	data = mainChain;
 }

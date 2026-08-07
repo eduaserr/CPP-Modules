@@ -29,10 +29,9 @@ public:
 	int parseNumber(const std::string& str) const;
 	void processInput(char **av);
 	void exec();
-	void sortPairsRecursive(std::vector<Pair>& pairs);
 	void mergeInsertVector(std::vector<int>& data);
 	void mergeInsertDeque(std::deque<int>& data);
-	std::vector<int> buildInsertionOrder(size_t pendingSize);
+	std::vector<int> buildInsertionOrder(size_t pendingSize, std::vector<int> &mainChain, std::vector<int> &pending);
 	void printBefore() const;
 	void printAfter() const;
 };
