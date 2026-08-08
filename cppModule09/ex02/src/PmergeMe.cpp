@@ -157,10 +157,12 @@ std::vector<Pair> makePairs(std::vector<int> &data) {
 	std::vector<Pair> pair;
 	for (size_t i = 0; i + 1 < data.size(); i += 2) {
 		Pair pairs;
+		size_t id = 0;
 		if (data[i] > data[i + 1])
 			std::swap(data[i], data[i + 1]);
 		pairs.small = data[i];
 		pairs.big = data[i + 1];
+		pairs.id = id++;
 		pair.push_back(pairs);
 	}
 	return (pair);

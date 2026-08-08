@@ -13,6 +13,7 @@ struct Pair
 {
     int small;
     int big;
+	size_t id;
 };
 
 class PmergeMe {
