@@ -31,7 +31,7 @@ public:
 	void exec();
 	void mergeInsertVector(std::vector<int>& data);
 	void mergeInsertDeque(std::deque<int>& data);
-	std::vector<int> buildInsertionOrder(size_t pendingSize, std::vector<int> &mainChain, std::vector<int> &pending);
+	std::vector<int> buildInsertionOrder(std::vector<int> &mainChain, std::vector<int> &pending);
 	void printBefore() const;
 	void printAfter() const;
 };

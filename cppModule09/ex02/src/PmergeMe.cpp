@@ -76,6 +76,21 @@ void	printPend(std::vector<int>& pend)
 	}
 	std::cout << std::endl;
 }
+void	printOrder(std::vector<int>& oder)
+{
+	for (size_t i = 0; i < oder.size(); i++) {
+		std::cout << "Oder  [" << i << "] = " << oder[i] << " | ";
+	}
+	std::cout << std::endl;
+}
+void	printPairs(std::vector<Pair> &p)
+{
+	for (size_t i = 0; i < p.size(); i++) {
+		std::cout << "pairs big  [" << i << "] = " << p[i].big << " | ";
+		std::cout << "pairs small [" << i << "] = " << p[i].small << " | ";
+	}
+	std::cout << std::endl;
+}
 void PmergeMe::printBefore() const
 {
 	std::cout << "Before: ";
@@ -107,31 +122,31 @@ std::vector<size_t> limitsJacobsthal(int size) {
 	}
 	return jacob; // Contiene por ejemplo: 1, 1, 3, 5, 11, 21...
 }
-std::vector<int> PmergeMe::buildInsertionOrder(size_t pendingSize, std::vector<int> &mainChain, std::vector<int> &pending)
+std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &mainChain, std::vector<int> &pending)
 {
-	std::vector<size_t> jacob = limitsJacobsthal(pendingSize);
+	(void)mainChain;
+	(void)pending;
+
 	std::vector<int> order;
 
+	std::vector<size_t> jacob = limitsJacobsthal(pending.size());
+
 	printJacob(jacob);
-	// siempre se inserta el primero
-	if (pendingSize > 0)
-		mainChain.push_back(pending[0]);
 
-	//size_t prev = 1;
+	size_t prev = 1;
 
-	//for (size_t i = 2;)
-	/* for (size_t j = 2; j < jacob.size(); j++)
+	for (size_t j = 2; j < jacob.size(); j++)
 	{
-		size_t current = std::min((size_t)jacob[j], pendingSize);
+		size_t current = std::min((size_t)jacob[j], pending.size());
 
 		while (current > prev)
 		{
-			mainChain.push_back(current - 1); // pasar de b1,b2... a índice 0,1...
+			order.push_back(current - 1); // pasar de b1,b2... a índice 0,1...
 			current--;
 		}
 
 		prev = jacob[j];
-	} */
+	}
 	return order;
 }
 std::vector<Pair> makePairs(std::vector<int> &data) {
@@ -146,52 +161,129 @@ std::vector<Pair> makePairs(std::vector<int> &data) {
 	}
 	return (pair);
 }
+void sortPending(std::vector<int>& mainChain, std::vector<int>& pending, std::vector<Pair>& pairs)
+{
+	for (size_t i = 0; i < pending.size(); i++) {
+		size_t j = 0;
+		while (j < pairs.size()){
+			if (pending[i] == pairs[j].small) 	// encontrar indx pequeño en lista
+				break ;
+			j++;
+		}
+
+		if (j == pairs.size())
+			std::cout << "No pair found in insert pend" << std::endl;
+	
+		std::cout << "S in pend. iter j is " << j << " | ";
+	
+		size_t k;
+		for (k = 0; k < mainChain.size(); k++){		// encontrar indx pareja del pequeño en mainChain
+			if (mainChain[k] == pairs[j].big)
+				break ;
+		}
+		if (k == mainChain.size())
+			std::cout << "No pair found in mainChain" << std::endl;
+		std::cout << "S in main. iter k is " << k << std::endl;
+		if (k != mainChain.size()){
+			std::swap(pending[k], pending[i]);
+		}
+	}
+}
+
 void PmergeMe::mergeInsertVector(std::vector<int>& data)
 {
 	if (data.size() <= 1)
 		return ;
 
-	std::vector<Pair> pairs = makePairs(data);
+	std::vector<Pair> pairs = makePairs(data);		// Hago parejas
 
-	bool hasStraggler = (data.size() % 2 != 0);
-	int straggler = hasStraggler ? data.back() : 0;
+	bool hasStraggler = (data.size() % 2 != 0);			// compruebo si hay sobrante
+	int straggler = hasStraggler ? data.back() : 0;		// lo guardamos
 
 	std::vector<int> mainChain;
 	std::vector<int> pending;
 
-	for (size_t i = 0; i < pairs.size(); i++) {
+	std::cout << " __ Make Pairs __ " << std::endl;
+
+	printPairs(pairs);
+	for (size_t i = 0; i < pairs.size(); i++)			//Rellenamos mainChain y pending
+	{
 		pending.push_back(pairs[i].small);
 		mainChain.push_back(pairs[i].big);
 	}
-	if (straggler)
-		pending.push_back(straggler);
+
+	std::cout << " __ Data OG __ " << std::endl;
+	
 	printdata(data);
+
+	std::cout << " __ MAIN CHAIN __ " << std::endl;
+
 	printMain(mainChain);
+
+	std::cout << " __ PENDING __ " << std::endl;
+
 	printPend(pending);
-	mergeInsertVector(mainChain);
-	if (!pending.empty())
-		mainChain.insert(mainChain.begin(), pending[0]);
-	std::cout << " __ Pre buildInsert __ " << std::endl;
+
+
+	mergeInsertVector(mainChain);					//LLAMADA RECURSIVA
+
+	std::cout << " == Pos recursive == " << std::endl;
 	printMain(mainChain);
 	printPend(pending);
 	std::cout << std::endl;
-	//std::vector<int> order = buildInsertionOrder(pending.size(), mainChain, pending);
+
+	// ENcontrar y mover pending para mantener su relacion/pareja con mainChain
+	sortPending(mainChain, pending, pairs);
+
+	std::cout << " == SWAP PEND == " << std::endl;
+	printPend(pending);
+
+	if (straggler)
+		std::cout << "stragler is " << straggler << std::endl;
+	// if pending sobra uno (No eslo mismo que stragler), buscar el mayor mas cercano por encima de su pareja
 	
-	//for (size_t k = 1; k < order.size(); k++) {
-	//	size_t index = order[k];
-	//	Pair elementoActual = pending[index];
+	if (!pending.empty())
+		mainChain.insert(mainChain.begin(), pending[0]);
+	std::vector<int> order = buildInsertionOrder(mainChain, pending);
 
-	//	std::vector<int>::iterator limiteSuperior = std::find(mainChain.begin(), mainChain.end(), elementoActual.big);
-	//	std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), limiteSuperior, elementoActual.small);
-	//	mainChain.insert(pos, elementoActual.small);
-		//std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), pending[index]);
-		//mainChain.insert(pos, pending[index]);
-	//}
+	std::cout << " == PEND ORDER == " << std::endl;
+	printOrder(order);
 
-	//if ((data.size() % 2 != 0)) {
-	//	std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-	//	mainChain.insert(pos, straggler);
-	//}
+	for (size_t i = 1; i < pending.size(); i++){
+		size_t j = 0;
+		size_t in = order[i];
+		std::cout << order[i] << std::endl;
+		std::cout << in << std::endl;
+
+		while (j < pairs.size())
+		{
+			if (pairs[j].small == pending[i])
+				break ;
+			j++;
+		}
+		if (j == pairs.size()) {
+			std::cout << "No pair found" << std::endl;
+			std::cout << pending[i] << std::endl;
+			std::cout << "j failed in "<< j << std::endl;
+			continue ;
+		}
+			std::cout << "i is "<< i << std::endl;
+			std::cout << "j is "<< j << std::endl;
+
+
+		std::vector<int>::iterator it = find(mainChain.begin(), mainChain.end(), pairs[j].big);	// se tiene que poder buscar mas rapido la posicion
+		std::cout << "pair for " << pending[i] << " is " << *it << " = " << pairs[j].big << std::endl;
+		//mainChain.insert(it, pending[i]);
+	}
+
+
+
+
+
+	if (straggler) {
+		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+		mainChain.insert(pos, straggler);
+	}
 
 	data = mainChain;
 }
