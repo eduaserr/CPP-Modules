@@ -125,19 +125,23 @@ std::vector<size_t> limitsJacobsthal(int size) {
 std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &mainChain, std::vector<int> &pending)
 {
 	(void)mainChain;
-	(void)pending;
+	size_t pendSize = pending.size();
 
 	std::vector<int> order;
 
-	std::vector<size_t> jacob = limitsJacobsthal(pending.size());
+	std::vector<size_t> jacob = limitsJacobsthal(pendSize);
 
 	printJacob(jacob);
 
+	if (pendSize <= 1)
+        return order;
 	size_t prev = 1;
 
 	for (size_t j = 2; j < jacob.size(); j++)
 	{
-		size_t current = std::min((size_t)jacob[j], pending.size());
+		size_t current = jacob[j];
+		if (current > pendSize)
+            current = pendSize;
 
 		while (current > prev)
 		{
@@ -249,6 +253,8 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 	std::cout << " == PEND ORDER == " << std::endl;
 	printOrder(order);
 
+	if (order.size() <= 1)
+		return ;
 	for (size_t i = 1; i < pending.size(); i++){
 		size_t j = 0;
 		size_t in = order[i];
@@ -257,13 +263,13 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 
 		while (j < pairs.size())
 		{
-			if (pairs[j].small == pending[i])
+			if (pairs[j].small == pending[in])
 				break ;
 			j++;
 		}
 		if (j == pairs.size()) {
 			std::cout << "No pair found" << std::endl;
-			std::cout << pending[i] << std::endl;
+			std::cout << pending[in] << std::endl;
 			std::cout << "j failed in "<< j << std::endl;
 			continue ;
 		}
@@ -272,7 +278,7 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 
 
 		std::vector<int>::iterator it = find(mainChain.begin(), mainChain.end(), pairs[j].big);	// se tiene que poder buscar mas rapido la posicion
-		std::cout << "pair for " << pending[i] << " is " << *it << " = " << pairs[j].big << std::endl;
+		std::cout << "pair for " << pending[in] << " is " << *it << " = " << pairs[j].big << std::endl;
 		//mainChain.insert(it, pending[i]);
 	}
 
