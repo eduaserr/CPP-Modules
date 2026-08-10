@@ -48,42 +48,42 @@ void PmergeMe::processInput(char **av)
 	}
 }
 
-void	printJacob(std::vector<size_t>& Jacob)
+void	PmergeMe::printJacob(const std::vector<size_t>& Jacob) const
 {
 	for (size_t i = 0; i < Jacob.size(); i++) {
 		std::cout << "Jacob [" << i << "] = " << Jacob[i] << " | ";
 	}
 	std::cout << std::endl;
 }
-void	printdata(std::vector<int>& data)
+void	PmergeMe::printData(const std::vector<int>& data) const
 {
 	for (size_t i = 0; i < data.size(); i++) {
 		std::cout << "data [" << i << "] = " << data[i] << " | ";
 	}
 	std::cout << std::endl;
 }
-void	printMain(std::vector<int>& main)
+void	PmergeMe::printMain(const std::vector<int>& main) const
 {
 	for (size_t i = 0; i < main.size(); i++) {
 		std::cout << "MainChain [" << i << "] = " << main[i] << " | ";
 	}
 	std::cout << std::endl;
 }
-void	printPend(std::vector<int>& pend)
+void	PmergeMe::printPend(const std::vector<int>& pend) const
 {
 	for (size_t i = 0; i < pend.size(); i++) {
 		std::cout << "Pending  [" << i << "] = " << pend[i] << " | ";
 	}
 	std::cout << std::endl;
 }
-void	printOrder(std::vector<int>& oder)
+void	PmergeMe::printOrder(const std::vector<int>& oder) const
 {
 	for (size_t i = 0; i < oder.size(); i++) {
 		std::cout << "Oder  [" << i << "] = " << oder[i] << " | ";
 	}
 	std::cout << std::endl;
 }
-void printPairs(const std::vector<Pair>& pairs)
+void PmergeMe::printPairs(const std::vector<Pair>& pairs) const
 {
 	std::cout << "Pairs:" << std::endl;
 
@@ -115,7 +115,7 @@ void PmergeMe::printAfter() const
 	std::cout << std::endl;
 }
 
-std::vector<size_t> limitsJacobsthal(int size) {
+static std::vector<size_t> limitsJacobsthal(size_t size) {
 	std::vector<size_t> jacob;
 	jacob.push_back(1); // J(1)
 	jacob.push_back(1); // J(2)
@@ -129,7 +129,7 @@ std::vector<size_t> limitsJacobsthal(int size) {
 	}
 	return jacob; // Contiene por ejemplo: 1, 1, 3, 5, 11, 21...
 }
-std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &pending)
+std::vector<int> PmergeMe::buildInsertionOrder(const std::vector<int> &pending) const
 {
 	size_t pendSize = pending.size();
 	std::vector<int> order;
@@ -156,7 +156,7 @@ std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &pending)
 	}
 	return order;
 }
-std::vector<Pair> makePairs(std::vector<int> &data) {
+static std::vector<Pair> makePairs(std::vector<int> &data) {
 	std::vector<Pair> pair;
 	for (size_t i = 0; i + 1 < data.size(); i += 2) {
 		Pair pairs;
@@ -169,7 +169,7 @@ std::vector<Pair> makePairs(std::vector<int> &data) {
 	return (pair);
 }
 
-void sortPending(std::vector<int>& mainChain,std::vector<int>& pending, std::vector<Pair>& pairs)
+void PmergeMe::sortPending(std::vector<int>& mainChain,std::vector<int>& pending, std::vector<Pair>& pairs)
 {
 	if (pending.size() <= 1)
 		return ;
@@ -192,7 +192,7 @@ void sortPending(std::vector<int>& mainChain,std::vector<int>& pending, std::vec
 	pairs = sortedPairs;
 }
 
-size_t getPairIndx(const std::vector<int>& pend, size_t jac, const std::vector<Pair>& pairs)
+size_t PmergeMe::getPairIndx(const std::vector<int>& pend, size_t jac, const std::vector<Pair>& pairs)
 {
 	size_t i;
 	for (i = 0; i < pairs.size(); ++i) {
@@ -201,7 +201,7 @@ size_t getPairIndx(const std::vector<int>& pend, size_t jac, const std::vector<P
 	}
 	return i;
 }
-size_t getMainPos( const std::vector<int>& mainChain, const Pair& pair)
+size_t PmergeMe::getMainPos(const std::vector<int>& mainChain, const Pair& pair)
 {
 	size_t i;
 	for (i = 0; i < mainChain.size(); ++i) {
@@ -234,7 +234,7 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 
 	std::cout << " __ Data OG __ " << std::endl;
 	
-	printdata(data);
+	printData(data);
 
 	std::cout << " __ MAIN CHAIN __ " << std::endl;
 
