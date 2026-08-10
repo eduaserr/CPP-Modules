@@ -91,7 +91,6 @@ void printPairs(const std::vector<Pair>& pairs)
 	{
 		std::cout
 			<< "  [" << i << "] "
-			<< "id=" << pairs[i].id
 			<< "  small=" << pairs[i].small
 			<< "  big=" << pairs[i].big
 			<< std::endl;
@@ -130,13 +129,10 @@ std::vector<size_t> limitsJacobsthal(int size) {
 	}
 	return jacob; // Contiene por ejemplo: 1, 1, 3, 5, 11, 21...
 }
-std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &mainChain, std::vector<int> &pending)
+std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &pending)
 {
-	(void)mainChain;
 	size_t pendSize = pending.size();
-
 	std::vector<int> order;
-
 	std::vector<size_t> jacob = limitsJacobsthal(pendSize);
 
 	printJacob(jacob);
@@ -145,8 +141,7 @@ std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &mainChain, std:
 		return order;
 	size_t prev = 1;
 
-	for (size_t j = 2; j < jacob.size(); j++)
-	{
+	for (size_t j = 2; j < jacob.size(); j++) {
 		size_t current = jacob[j];
 		if (current > pendSize)
 			current = pendSize;
@@ -163,85 +158,58 @@ std::vector<int> PmergeMe::buildInsertionOrder(std::vector<int> &mainChain, std:
 }
 std::vector<Pair> makePairs(std::vector<int> &data) {
 	std::vector<Pair> pair;
-	size_t id = 0;
 	for (size_t i = 0; i + 1 < data.size(); i += 2) {
 		Pair pairs;
 		if (data[i] > data[i + 1])
 			std::swap(data[i], data[i + 1]);
 		pairs.small = data[i];
 		pairs.big = data[i + 1];
-		pairs.id = id++;
 		pair.push_back(pairs);
 	}
 	return (pair);
 }
-void	sortPairs(){
 
-}
-void sortPending(std::vector<int>& mainChain, std::vector<int>& pending, std::vector<Pair>& pairs)
+void sortPending(std::vector<int>& mainChain,std::vector<int>& pending, std::vector<Pair>& pairs)
 {
 	if (pending.size() <= 1)
 		return ;
 
-	for (size_t i = 0; i < pending.size(); i++) {
-		size_t j = 0;
-		while (j < pairs.size()){
-			if (pending[i] == pairs[j].small) 	// encontrar indx pequeño en lista
-				break ;
-			j++;
-		}
+	std::vector<int> sortedPending;
+	std::vector<Pair> sortedPairs;
 
-		if (j == pairs.size()){
-			std::cout << "No pair found in insert pend" << std::endl;
-			continue ;
-		}
-	
-		std::cout << "S in pend. iter j is " << j << " | ";
-	
-		size_t k;
-		for (k = 0; k < mainChain.size(); k++){		// encontrar indx pareja del pequeño en mainChain
-			if (mainChain[k] == pairs[j].big)
+	for (size_t mainIndex = 0; mainIndex < mainChain.size(); ++mainIndex) {
+		for (size_t pairIndex = 0; pairIndex < pairs.size(); ++pairIndex)
+		{
+			if (pairs[pairIndex].big == mainChain[mainIndex])
+			{
+				sortedPending.push_back(pairs[pairIndex].small);
+				sortedPairs.push_back(pairs[pairIndex]);
 				break ;
-		}
-		if (k == mainChain.size()){
-			std::cout << "No pair found in mainChain" << std::endl;
-			continue ;}
-		std::cout << "S in main. iter k is " << k << std::endl;
-		if (k != mainChain.size()){
-			std::swap(pending[k], pending[i]);		// en este swap int k se encuentra en la pos del grande del mainchain.
-													// i se encuenntra en la posicion del pequeño que necesitamos cambiar
-			std::swap(pairs[k], pairs[j]);		//ordenar parejas al mismo indx que k (mantener relacion de posiciones tambien en pairs)
+			}
 		}
 	}
+	pending = sortedPending;
+	pairs = sortedPairs;
 }
 
-void newsortPending(std::vector<int>& mainChain,
-                           std::vector<int>& pending,
-                           std::vector<Pair>& pairs)
+size_t getPairIndx(const std::vector<int>& pend, size_t jac, const std::vector<Pair>& pairs)
 {
-    if (pending.size() <= 1)
-        return;
-
-    std::vector<int> sortedPending;
-    std::vector<Pair> sortedPairs;
-
-    for (size_t mainIndex = 0; mainIndex < mainChain.size(); ++mainIndex)
-    {
-        for (size_t pairIndex = 0; pairIndex < pairs.size(); ++pairIndex)
-        {
-            if (pairs[pairIndex].big == mainChain[mainIndex])
-            {
-                sortedPending.push_back(pairs[pairIndex].small);
-                sortedPairs.push_back(pairs[pairIndex]);
-                break;
-            }
-        }
-    }
-
-    pending = sortedPending;
-    pairs = sortedPairs;
+	size_t i;
+	for (i = 0; i < pairs.size(); ++i) {
+		if (pairs[i].small == pend[jac])
+			break ;
+	}
+	return i;
 }
-
+size_t getMainPos( const std::vector<int>& mainChain, const Pair& pair)
+{
+	size_t i;
+	for (i = 0; i < mainChain.size(); ++i) {
+		if (mainChain[i] == pair.big)
+			break ;
+	}
+	return i;
+}
 void PmergeMe::mergeInsertVector(std::vector<int>& data)
 {
 	if (data.size() <= 1)
@@ -287,132 +255,73 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 
 	std::cout << "\n========== SORT PENDING ==========\n";
 	// ENcontrar y mover pending para mantener su relacion/pareja con mainChain
-	newsortPending(mainChain, pending, pairs);
+	sortPending(mainChain, pending, pairs);
 
 	std::cout << " == SWAP PEND == " << std::endl;
 	printPend(pending);
 	std::cout << " == SWAP PAIRS IDX == " << std::endl;
 	printPairs(pairs);
 
-
 	if (straggler)
 		std::cout << "stragler is " << straggler << std::endl;
 	// if pending sobra uno (No eslo mismo que stragler), buscar el mayor mas cercano por encima de su pareja
-	
+	//antes de insertar, tanto el main como pend deben estar ordenados
 	if (!pending.empty())
 		mainChain.insert(mainChain.begin(), pending[0]);
 	std::cout << " == MAIN + INSERT [0] == " << std::endl;
 	printMain(mainChain);
-	std::vector<int> order = buildInsertionOrder(mainChain, pending);
+	std::vector<int> order = buildInsertionOrder(pending);
 
 	std::cout << " == PEND ORDER == " << std::endl;
 	printOrder(order);
 
-	if (order.size() < 1)
-		return ;
 	for (size_t i = 0; i < order.size(); i++) {
-    	size_t in = order[i];
+		size_t jac = order[i];
 
-    	std::cout << "\n----------------------------------------" << std::endl;
-    	std::cout << "ORDER INDEX = " << i << std::endl;
-    	std::cout << "PENDING INDEX = " << in << std::endl;
-    	std::cout << "PENDING VALUE = " << pending[in] << std::endl;
+		std::cout << "\n----------------------------------------" << std::endl;
+		std::cout << "ORDER INDEX = " << i << std::endl;
+		std::cout << "PENDING INDEX = " << jac << std::endl;
+		std::cout << "PENDING VALUE = " << pending[jac] << std::endl;
 
-    // --------------------------------------------------------
-    // Buscar la Pair correspondiente
-    // --------------------------------------------------------
+	// --------------------------------------------------------
+	// Buscar la Pair correspondiente
+	// --------------------------------------------------------
 
-    	size_t j = 0;
-
-    	while (j < pairs.size())
-    	{
-    		if (pairs[j].small == pending[in])
-            	break;
-
-        	j++;
-    	}
-
-    	if (j == pairs.size())
-    	{
-        	std::cout << "No pair found" << std::endl;
-        	continue;
-    	}
-
-    	std::cout << "PAIR FOUND:" << std::endl;
-    	std::cout << "small = " << pairs[j].small << std::endl;
-    	std::cout << "big   = " << pairs[j].big << std::endl;
-
-
-    // --------------------------------------------------------
-    // Buscar la posición de la pareja en mainChain
-    // --------------------------------------------------------
-
-    	size_t partnerPos = 0;
-
-    	while (partnerPos < mainChain.size())
-    	{
-        	if (mainChain[partnerPos] == pairs[j].big)
-            	break;
-
-        	partnerPos++;
-    	}
-
-    	if (partnerPos == mainChain.size())
-    	{
-        	std::cout << "Partner not found in mainChain" << std::endl;
-        	continue;
-    	}
-
-    	std::cout << "PARTNER POSITION = "
-              	<< partnerPos << std::endl;
-
-
-    // --------------------------------------------------------
-    // BÚSQUEDA BINARIA LIMITADA
-    // --------------------------------------------------------
-
-    	std::vector<int>::iterator begin = mainChain.begin();
-    	std::vector<int>::iterator end = mainChain.begin() + partnerPos;
-
-    	std::vector<int>::iterator pos =
-        std::lower_bound(begin, end, pending[in]);
-
-	/* for (size_t i = 1; i < pending.size(); i++){
-		size_t j = 0;
-		size_t k = 0;
-		size_t in = order[i];
-		std::cout << order[i] << std::endl;
-		std::cout << in << std::endl;
-
-		while (j < pairs.size())
-		{
-			if (pairs[j].small == pending[i])
-				break ;
-			j++;
-		}
+		size_t j = getPairIndx(pending, jac, pairs);
 		if (j == pairs.size()) {
 			std::cout << "No pair found" << std::endl;
-			std::cout << pending[i] << std::endl;
-			std::cout << "j failed in "<< j << std::endl;
 			continue ;
 		}
-			std::cout << "i is "<< i << std::endl;
-			std::cout << "j is "<< j << std::endl;
 
+		std::cout << "PAIR FOUND:" << std::endl;
+		std::cout << "small = " << pairs[j].small << std::endl;
+		std::cout << "big   = " << pairs[j].big << std::endl;
 
-		std::vector<int>::iterator it = find(mainChain.begin(), mainChain.end(), pairs[j].big);	// se tiene que poder buscar mas rapido la posicion
-		std::cout << "pair for " << pending[i] << " is " << *it << " = " << pairs[j].big << std::endl;
-		mainChain.insert(it, pending[i]); */
-		mainChain.insert(pos, pending[in]);
+	// --------------------------------------------------------
+	// Buscar la posición de la pareja en mainChain
+	// --------------------------------------------------------
+
+		size_t MainPos = getMainPos(mainChain, pairs[j]);
+		if (MainPos == mainChain.size())
+		{
+			std::cout << "Partner not found in mainChain" << std::endl;
+			continue ;
+		}
+
+		std::cout << "PARTNER POSITION = " << MainPos << std::endl;
+
+	// --------------------------------------------------------
+	// BÚSQUEDA BINARIA LIMITADA
+	// --------------------------------------------------------
+
+		std::vector<int>::iterator begin = mainChain.begin();
+		std::vector<int>::iterator end = mainChain.begin() + MainPos;
+		std::vector<int>::iterator pos = std::lower_bound(begin, end, pending[jac]);
+		mainChain.insert(pos, pending[jac]);
+
 		std::cout << " __ FINAL MAIN CHAIN __ " << std::endl;
-
 		printMain(mainChain);
 	}
-
-
-
-
-
 	if (straggler) {
 		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
 		mainChain.insert(pos, straggler);
@@ -434,11 +343,6 @@ void PmergeMe::exec() {
 	//mergeInsertDeque(_deque);
 	printAfter();
 	double vectorTime = static_cast<double>(endVector - startVector) * 1000000.0 / CLOCKS_PER_SEC;
-	std::cout
-	<< "Time to process a range of "
-	<< _vector.size()
-	<< " elements with std::vector : "
-	<< vectorTime
-	<< " us"
-	<< std::endl;
+	std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector : "
+	<< vectorTime << " us" << std::endl;
 }
