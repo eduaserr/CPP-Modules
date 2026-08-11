@@ -48,68 +48,11 @@ void PmergeMe::processInput(char **av)
 	}
 }
 
-template <typename Container>
-void	PmergeMe::printJacob(const Container& Jacob) const
-{
-	for (size_t i = 0; i < Jacob.size(); i++) {
-		std::cout << "Jacob [" << i << "] = " << Jacob[i] << " | ";
-	}
-	std::cout << std::endl;
-}
-template <typename Container>
-void	PmergeMe::printData(const Container& data) const
-{
-	for (size_t i = 0; i < data.size(); i++) {
-		std::cout << "data [" << i << "] = " << data[i] << " | ";
-	}
-	std::cout << std::endl;
-}
-template <typename Container>
-void	PmergeMe::printMain(const Container& main) const
-{
-	for (size_t i = 0; i < main.size(); i++) {
-		std::cout << "MainChain [" << i << "] = " << main[i] << " | ";
-	}
-	std::cout << std::endl;
-}
-template <typename Container>
-void	PmergeMe::printPend(const Container& pend) const
-{
-	for (size_t i = 0; i < pend.size(); i++) {
-		std::cout << "Pending  [" << i << "] = " << pend[i] << " | ";
-	}
-	std::cout << std::endl;
-}
-template <typename Container>
-void	PmergeMe::printOrder(const Container& oder) const
-{
-	for (size_t i = 0; i < oder.size(); i++) {
-		std::cout << "Oder  [" << i << "] = " << oder[i] << " | ";
-	}
-	std::cout << std::endl;
-}
-template <typename Container>
-void PmergeMe::printPairs(const Container& pairs) const
-{
-	std::cout << "Pairs:" << std::endl;
-
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		std::cout
-			<< "  [" << i << "] "
-			<< "  small=" << pairs[i].small
-			<< "  big=" << pairs[i].big
-			<< std::endl;
-	}
-
-	std::cout << std::endl;
-}
 void PmergeMe::printBefore() const
 {
 	std::cout << "Before: ";
 	for (size_t i = 0; i < _vector.size(); i++)
 		std::cout << _vector[i] << " ";
-
 	std::cout << std::endl;
 }
 void PmergeMe::printAfter() const
@@ -117,23 +60,21 @@ void PmergeMe::printAfter() const
 	std::cout << "After: ";
 	for (size_t i = 0; i < _vector.size(); i++)
 		std::cout << _vector[i] << " ";
-
 	std::cout << std::endl;
 }
 
 static std::vector<size_t> limitsJacobsthalVec(size_t size) {
 	std::vector<size_t> jacob;
-	jacob.push_back(1); // J(1)
-	jacob.push_back(1); // J(2)
+	jacob.push_back(1);
+	jacob.push_back(1);
 
-	// Generar términos hasta que el número supere la cantidad de elementos en B
 	size_t i = 2;
 	while (jacob.back() < size_t(size)) {
 		size_t next = jacob[i - 1] + 2 * jacob[i - 2];
 		jacob.push_back(next);
 		i++;
 	}
-	return jacob; // Contiene por ejemplo: 1, 1, 3, 5, 11, 21...
+	return jacob;
 }
 std::vector<size_t> PmergeMe::buildInsertionOrderVec(size_t pendSize) const
 {
@@ -151,14 +92,14 @@ std::vector<size_t> PmergeMe::buildInsertionOrderVec(size_t pendSize) const
 
 		while (current > prev)
 		{
-			order.push_back(current - 1); // pasar de b1,b2... a índice 0,1...
+			order.push_back(current - 1);
 			current--;
 		}
-
 		prev = jacob[j];
 	}
 	return order;
 }
+
 template <typename Container, typename Pairs>
 static Pairs makePairs(Container &data) {
 	Pairs pair;
@@ -180,7 +121,7 @@ void PmergeMe::sortPending(Container& mainChain, Container& pending, Pairs& pair
 		return ;
 
 	Container sortedPending;
-	Pairs sortedPairs;
+	Pairs	sortedPairs;
 
 	for (size_t mainIndex = 0; mainIndex < mainChain.size(); ++mainIndex) {
 		for (size_t pairIndex = 0; pairIndex < pairs.size(); ++pairIndex)
@@ -200,18 +141,17 @@ void PmergeMe::sortPending(Container& mainChain, Container& pending, Pairs& pair
 template <typename Container, typename Pairs>
 size_t PmergeMe::getPairIndx(const Container& pend, size_t jac, const Pairs& pairs)
 {
-	size_t i;
+	size_t	i;
 	for (i = 0; i < pairs.size(); ++i) {
 		if (pairs[i].small == pend[jac])
 			break ;
 	}
 	return i;
 }
-
 template <typename Container>
 size_t PmergeMe::getMainPos(const Container& mainChain, const Pair& pair)
 {
-	size_t i;
+	size_t	i;
 	for (i = 0; i < mainChain.size(); ++i) {
 		if (mainChain[i] == pair.big)
 			break ;
@@ -223,55 +163,39 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 	if (data.size() <= 1)
 		return ;
 
-	std::vector<Pair> pairs = makePairs<std::vector<int>, std::vector<Pair> >(data);		// Hago parejas
+	std::vector<Pair> pairs = makePairs<std::vector<int>, std::vector<Pair> >(data);
 
-	bool hasStraggler = (data.size() % 2 != 0);			// compruebo si hay sobrante
-	int straggler = hasStraggler ? data.back() : 0;		// lo guardamos
+	bool hasStraggler = (data.size() % 2 != 0);
+	int straggler = hasStraggler ? data.back() : 0;
 
 	std::vector<int> mainChain;
 	std::vector<int> pending;
 
-	for (size_t i = 0; i < pairs.size(); i++)			//Rellenamos mainChain y pending
+	for (size_t i = 0; i < pairs.size(); i++)
 	{
 		pending.push_back(pairs[i].small);
 		mainChain.push_back(pairs[i].big);
 	}
 
-	mergeInsertVector(mainChain);					//LLAMADA RECURSIVA
-
-	// ENcontrar y mover pending para mantener su relacion/pareja con mainChain
+	mergeInsertVector(mainChain);
+	
 	sortPending(mainChain, pending, pairs);
 
-	// if pending sobra uno (No eslo mismo que stragler), buscar el mayor mas cercano por encima de su pareja
-	//antes de insertar, tanto el main como pend deben estar ordenados
 	if (!pending.empty())
 		mainChain.insert(mainChain.begin(), pending[0]);
 
 	std::vector<size_t> order = buildInsertionOrderVec(pending.size());
 
-
 	for (size_t i = 0; i < order.size(); i++) {
 		size_t jac = order[i];
-
-	// --------------------------------------------------------
-	// Buscar la Pair correspondiente
-	// --------------------------------------------------------
 
 		size_t j = getPairIndx(pending, jac, pairs);
 		if (j == pairs.size())
 			continue ;
 
-	// --------------------------------------------------------
-	// Buscar la posición de la pareja en mainChain
-	// --------------------------------------------------------
-
 		size_t MainPos = getMainPos(mainChain, pairs[j]);
 		if (MainPos == mainChain.size())
 			continue ;
-
-	// --------------------------------------------------------
-	// BÚSQUEDA BINARIA LIMITADA
-	// --------------------------------------------------------
 
 		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + MainPos, pending[jac]);
 		mainChain.insert(pos, pending[jac]);
@@ -283,22 +207,18 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 	data = mainChain;
 }
 
-
-
-
 static std::deque<size_t> limitsJacobsthalDq(size_t size) {
 	std::deque<size_t> jacob;
-	jacob.push_back(1); // J(1)
-	jacob.push_back(1); // J(2)
+	jacob.push_back(1); 
+	jacob.push_back(1); 
 
-	// Generar términos hasta que el número supere la cantidad de elementos en B
 	size_t i = 2;
 	while (jacob.back() < size_t(size)) {
 		size_t next = jacob[i - 1] + 2 * jacob[i - 2];
 		jacob.push_back(next);
 		i++;
 	}
-	return jacob; // Contiene por ejemplo: 1, 1, 3, 5, 11, 21...
+	return jacob; 
 }
 std::deque<size_t> PmergeMe::buildInsertionOrderDq(size_t pendSize) const
 {
@@ -315,7 +235,7 @@ std::deque<size_t> PmergeMe::buildInsertionOrderDq(size_t pendSize) const
 			current = pendSize;
 		while (current > prev)
 		{
-			order.push_back(current - 1); // pasar de b1,b2... a índice 0,1...
+			order.push_back(current - 1); 
 			current--;
 		}
 		prev = jacob[j];
@@ -327,45 +247,35 @@ void PmergeMe::mergeInsertDeque(std::deque<int>& data)
 	if (data.size() <= 1)
 		return ;
 
-	std::deque<Pair> pairs = makePairs<std::deque<int>, std::deque<Pair> >(data);		// Hago parejas
+	std::deque<Pair> pairs = makePairs<std::deque<int>, std::deque<Pair> >(data);		
 
-	bool hasStraggler = (data.size() % 2 != 0);			// compruebo si hay sobrante
-	int straggler = hasStraggler ? data.back() : 0;		// lo guardamos
+	bool hasStraggler = (data.size() % 2 != 0);			
+	int straggler = hasStraggler ? data.back() : 0;		
 
 	std::deque<int> mainChain;
 	std::deque<int> pending;
 
-	for (size_t i = 0; i < pairs.size(); i++)			//Rellenamos mainChain y pending
+	for (size_t i = 0; i < pairs.size(); i++)			
 	{
 		pending.push_back(pairs[i].small);
 		mainChain.push_back(pairs[i].big);
 	}
 
-	mergeInsertDeque(mainChain);					//LLAMADA RECURSIVA
+	mergeInsertDeque(mainChain);					
 
-	// ENcontrar y mover pending para mantener su relacion/pareja con mainChain
 	sortPending(mainChain, pending, pairs);
 
-	// if pending sobra uno (No eslo mismo que stragler), buscar el mayor mas cercano por encima de su pareja
-	//antes de insertar, tanto el main como pend deben estar ordenados
 	if (!pending.empty())
 		mainChain.insert(mainChain.begin(), pending[0]);
+
 	std::deque<size_t> order = buildInsertionOrderDq(pending.size());
 
 	for (size_t i = 0; i < order.size(); i++) {
 		size_t jac = order[i];
 
-	// --------------------------------------------------------
-	// Buscar la Pair correspondiente
-	// --------------------------------------------------------
-
 		size_t j = getPairIndx(pending, jac, pairs);
 		if (j == pairs.size())
 			continue ;
-
-	// --------------------------------------------------------
-	// Buscar la posición de la pareja en mainChain
-	// --------------------------------------------------------
 
 		size_t MainPos = getMainPos(mainChain, pairs[j]);
 		if (MainPos == mainChain.size())
@@ -381,22 +291,17 @@ void PmergeMe::mergeInsertDeque(std::deque<int>& data)
 	data = mainChain;
 }
 void PmergeMe::exec() {
-
 	printBefore();
 	std::clock_t startVector = std::clock();
 	mergeInsertVector(_vector);
 	std::clock_t endVector = std::clock();
- 	std::clock_t startDeque = std::clock();
-    mergeInsertDeque(_deque);
-    std::clock_t endDeque = std::clock();
+	std::clock_t startDeque = std::clock();
+	mergeInsertDeque(_deque);
+	std::clock_t endDeque = std::clock();
 	printAfter();
-	double vectorTime = static_cast<double>(endVector - startVector) * 1000000.0 / CLOCKS_PER_SEC;
-	
-	std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector : "
-	<< vectorTime << " us" << std::endl;
-
- 	double dequeTime = static_cast<double>(endDeque - startDeque) * 1000000.0 / CLOCKS_PER_SEC;
-	
-	std::cout << "Time to process a range of " << _deque.size() << " elements with std::deque : "
-    << dequeTime << " us" << std::endl;
-}
+	double vectorTime = static_cast<double>(endVector - startVector) * 1000.0 / CLOCKS_PER_SEC;
+	double dequeTime = static_cast<double>(endDeque - startDeque) * 1000.0 / CLOCKS_PER_SEC;
+	std::cout << std::fixed << std::setprecision(3);
+	std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector : " << vectorTime << " ms" << std::endl;
+	std::cout << "Time to process a range of " << _deque.size() << " elements with std::deque : " << dequeTime << " ms" << std::endl;
+ }
