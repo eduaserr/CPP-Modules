@@ -324,7 +324,8 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 	// BÚSQUEDA BINARIA LIMITADA
 	// --------------------------------------------------------
 
-		std::lower_bound(mainChain.begin(), mainChain.begin() + MainPos, pending[jac]);
+		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + MainPos, pending[jac]);
+		mainChain.insert(pos, pending[jac]);
 
 		std::cout << " __ FINAL MAIN CHAIN __ " << std::endl;
 		printMain(mainChain);
@@ -484,8 +485,8 @@ void PmergeMe::mergeInsertDeque(std::deque<int>& data)
 	// BÚSQUEDA BINARIA LIMITADA
 	// --------------------------------------------------------
 
-		std::lower_bound(mainChain.begin(), mainChain.begin() + MainPos, pending[jac]);
-
+		std::deque<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + MainPos, pending[jac]);
+		mainChain.insert(pos, pending[jac]);
 
 		std::cout << " __ FINAL MAIN CHAIN __ " << std::endl;
 		printMain(mainChain);
