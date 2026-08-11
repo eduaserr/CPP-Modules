@@ -140,8 +140,6 @@ std::vector<size_t> PmergeMe::buildInsertionOrderVec(size_t pendSize) const
 	std::vector<size_t> order;
 	std::vector<size_t> jacob = limitsJacobsthalVec(pendSize);
 
-	printJacob(jacob);
-
 	if (pendSize <= 1)
 		return order;
 	size_t prev = 1;
@@ -233,79 +231,35 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 	std::vector<int> mainChain;
 	std::vector<int> pending;
 
-	std::cout << " __ Make Pairs __ " << std::endl;
-
-	printPairs(pairs);
 	for (size_t i = 0; i < pairs.size(); i++)			//Rellenamos mainChain y pending
 	{
 		pending.push_back(pairs[i].small);
 		mainChain.push_back(pairs[i].big);
 	}
 
-	std::cout << " __ Data OG __ " << std::endl;
-	
-	printData(data);
-
-	std::cout << " __ MAIN CHAIN __ " << std::endl;
-
-	printMain(mainChain);
-
-	std::cout << " __ PENDING __ " << std::endl;
-
-	printPend(pending);
-
-
 	mergeInsertVector(mainChain);					//LLAMADA RECURSIVA
 
-	std::cout << " == Pos recursive == " << std::endl;
-	printMain(mainChain);
-	printPend(pending);
-	printPairs(pairs);
-	std::cout << std::endl;
-
-	std::cout << "\n========== SORT PENDING ==========\n";
 	// ENcontrar y mover pending para mantener su relacion/pareja con mainChain
 	sortPending(mainChain, pending, pairs);
 
-	std::cout << " == SWAP PEND == " << std::endl;
-	printPend(pending);
-	std::cout << " == SWAP PAIRS IDX == " << std::endl;
-	printPairs(pairs);
-
-	if (straggler)
-		std::cout << "stragler is " << straggler << std::endl;
 	// if pending sobra uno (No eslo mismo que stragler), buscar el mayor mas cercano por encima de su pareja
 	//antes de insertar, tanto el main como pend deben estar ordenados
 	if (!pending.empty())
 		mainChain.insert(mainChain.begin(), pending[0]);
-	std::cout << " == MAIN + INSERT [0] == " << std::endl;
-	printMain(mainChain);
+
 	std::vector<size_t> order = buildInsertionOrderVec(pending.size());
 
-	std::cout << " == PEND ORDER == " << std::endl;
-	printOrder(order);
 
 	for (size_t i = 0; i < order.size(); i++) {
 		size_t jac = order[i];
-
-		std::cout << "\n----------------------------------------" << std::endl;
-		std::cout << "ORDER INDEX = " << i << std::endl;
-		std::cout << "PENDING INDEX = " << jac << std::endl;
-		std::cout << "PENDING VALUE = " << pending[jac] << std::endl;
 
 	// --------------------------------------------------------
 	// Buscar la Pair correspondiente
 	// --------------------------------------------------------
 
 		size_t j = getPairIndx(pending, jac, pairs);
-		if (j == pairs.size()) {
-			std::cout << "No pair found" << std::endl;
+		if (j == pairs.size())
 			continue ;
-		}
-
-		std::cout << "PAIR FOUND:" << std::endl;
-		std::cout << "small = " << pairs[j].small << std::endl;
-		std::cout << "big   = " << pairs[j].big << std::endl;
 
 	// --------------------------------------------------------
 	// Buscar la posición de la pareja en mainChain
@@ -313,12 +267,7 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 
 		size_t MainPos = getMainPos(mainChain, pairs[j]);
 		if (MainPos == mainChain.size())
-		{
-			std::cout << "Partner not found in mainChain" << std::endl;
 			continue ;
-		}
-
-		std::cout << "PARTNER POSITION = " << MainPos << std::endl;
 
 	// --------------------------------------------------------
 	// BÚSQUEDA BINARIA LIMITADA
@@ -326,15 +275,11 @@ void PmergeMe::mergeInsertVector(std::vector<int>& data)
 
 		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + MainPos, pending[jac]);
 		mainChain.insert(pos, pending[jac]);
-
-		std::cout << " __ FINAL MAIN CHAIN __ " << std::endl;
-		printMain(mainChain);
 	}
 	if (straggler) {
 		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
 		mainChain.insert(pos, straggler);
 	}
-	printMain(mainChain);
 	data = mainChain;
 }
 
@@ -360,23 +305,19 @@ std::deque<size_t> PmergeMe::buildInsertionOrderDq(size_t pendSize) const
 	std::deque<size_t> order;
 	std::deque<size_t> jacob = limitsJacobsthalDq(pendSize);
 
-	printJacob(jacob);
-
 	if (pendSize <= 1)
 		return order;
-	size_t prev = 1;
 
+	size_t prev = 1;
 	for (size_t j = 2; j < jacob.size(); j++) {
 		size_t current = jacob[j];
 		if (current > pendSize)
 			current = pendSize;
-
 		while (current > prev)
 		{
 			order.push_back(current - 1); // pasar de b1,b2... a índice 0,1...
 			current--;
 		}
-
 		prev = jacob[j];
 	}
 	return order;
@@ -394,79 +335,33 @@ void PmergeMe::mergeInsertDeque(std::deque<int>& data)
 	std::deque<int> mainChain;
 	std::deque<int> pending;
 
-	std::cout << " __ Make Pairs __ " << std::endl;
-
-	printPairs(pairs);
 	for (size_t i = 0; i < pairs.size(); i++)			//Rellenamos mainChain y pending
 	{
 		pending.push_back(pairs[i].small);
 		mainChain.push_back(pairs[i].big);
 	}
 
-	std::cout << " __ Data OG __ " << std::endl;
-	
-	printData(data);
-
-	std::cout << " __ MAIN CHAIN __ " << std::endl;
-
-	printMain(mainChain);
-
-	std::cout << " __ PENDING __ " << std::endl;
-
-	printPend(pending);
-
-
 	mergeInsertDeque(mainChain);					//LLAMADA RECURSIVA
 
-	std::cout << " == Pos recursive == " << std::endl;
-	printMain(mainChain);
-	printPend(pending);
-	printPairs(pairs);
-	std::cout << std::endl;
-
-	std::cout << "\n========== SORT PENDING ==========\n";
 	// ENcontrar y mover pending para mantener su relacion/pareja con mainChain
 	sortPending(mainChain, pending, pairs);
 
-	std::cout << " == SWAP PEND == " << std::endl;
-	printPend(pending);
-	std::cout << " == SWAP PAIRS IDX == " << std::endl;
-	printPairs(pairs);
-
-	if (straggler)
-		std::cout << "stragler is " << straggler << std::endl;
 	// if pending sobra uno (No eslo mismo que stragler), buscar el mayor mas cercano por encima de su pareja
 	//antes de insertar, tanto el main como pend deben estar ordenados
 	if (!pending.empty())
 		mainChain.insert(mainChain.begin(), pending[0]);
-	std::cout << " == MAIN + INSERT [0] == " << std::endl;
-	printMain(mainChain);
 	std::deque<size_t> order = buildInsertionOrderDq(pending.size());
-
-	std::cout << " == PEND ORDER == " << std::endl;
-	printOrder(order);
 
 	for (size_t i = 0; i < order.size(); i++) {
 		size_t jac = order[i];
-
-		std::cout << "\n----------------------------------------" << std::endl;
-		std::cout << "ORDER INDEX = " << i << std::endl;
-		std::cout << "PENDING INDEX = " << jac << std::endl;
-		std::cout << "PENDING VALUE = " << pending[jac] << std::endl;
 
 	// --------------------------------------------------------
 	// Buscar la Pair correspondiente
 	// --------------------------------------------------------
 
 		size_t j = getPairIndx(pending, jac, pairs);
-		if (j == pairs.size()) {
-			std::cout << "No pair found" << std::endl;
+		if (j == pairs.size())
 			continue ;
-		}
-
-		std::cout << "PAIR FOUND:" << std::endl;
-		std::cout << "small = " << pairs[j].small << std::endl;
-		std::cout << "big   = " << pairs[j].big << std::endl;
 
 	// --------------------------------------------------------
 	// Buscar la posición de la pareja en mainChain
@@ -474,28 +369,15 @@ void PmergeMe::mergeInsertDeque(std::deque<int>& data)
 
 		size_t MainPos = getMainPos(mainChain, pairs[j]);
 		if (MainPos == mainChain.size())
-		{
-			std::cout << "Partner not found in mainChain" << std::endl;
 			continue ;
-		}
-
-		std::cout << "PARTNER POSITION = " << MainPos << std::endl;
-
-	// --------------------------------------------------------
-	// BÚSQUEDA BINARIA LIMITADA
-	// --------------------------------------------------------
 
 		std::deque<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + MainPos, pending[jac]);
 		mainChain.insert(pos, pending[jac]);
-
-		std::cout << " __ FINAL MAIN CHAIN __ " << std::endl;
-		printMain(mainChain);
 	}
 	if (straggler) {
 		std::deque<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
 		mainChain.insert(pos, straggler);
 	}
-	printMain(mainChain);
 	data = mainChain;
 }
 void PmergeMe::exec() {
